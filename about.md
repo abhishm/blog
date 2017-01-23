@@ -1,15 +1,9 @@
 ---
 layout: page
-title: Samsung SDS Research America - Artificial Intelligence Team
+title: Artificial Intelligence Lab
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+The AI Lab at Samsung SDS Research America is based in San Jose, California and is focused on researching and implementing technologies that support the development of intelligent agents that can perceive the state of an environment and take a sequence of actions that optimize a objective function over time.
 
-You can find the source code for the Jekyll new theme at:
-{% include icon-github.html username="jekyll" %} /
-[minima](https://github.com/jekyll/minima)
-
-You can find the source code for Jekyll at
-{% include icon-github.html username="jekyll" %} /
-[jekyll](https://github.com/jekyll/jekyll)
+This are of focus has led into the study and application of deep learning and reinforcement learning methods.
