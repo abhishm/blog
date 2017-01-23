@@ -1,6 +1,6 @@
 ---
 layout: page
-title: About
+title: Samsung SDS Research America - Artificial Intelligence Team
 permalink: /about/
 ---
 
