@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Can you identify a user from their bash history?"
-date:   2017-01-20 17:53:39 -0800
+date:   2017-01-26 14:00:00 -0800
 author: "Alex Beloi"
 ---
 <style>
