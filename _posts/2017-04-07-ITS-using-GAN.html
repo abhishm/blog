@@ -481,14 +481,14 @@ rkJggg==
 <p><strong>What are GANs?</strong></p>
 <p>Generative Adversarial Networks (GANs) are examples of generative models in the machine learning literature. They are used in the context of unsupervised or semi-supervised learning. Using a few training data samples, GANs learn to represent an estimate of the distribution. For a detailed introduction to GANs, please refer to the seminal paper by Goodfellow et al. <a href="https://arxiv.org/abs/1406.2661">[1]</a> or the same author's excellent summary on GANs at NIPS 2016 <a href="https://arxiv.org/abs/1701.00160">[2]</a>.</p>
 <p>GANs essentially comprise two deep neural networks, the <strong>Discriminator</strong> and the <strong>Generator</strong>. The discriminator function $D$ takes in an input sample $x$ and determines the probability $D(x)$, of $x$ having been drawn from the original data distribution. The generator function $G$ takes in a noisy sample $z$, and generates a sample $G(z)$, that is intended to fool the discriminator into believing that the sample is indeed from the original data distribution. While the generator attempts to generate samples that are probabilistically close to the training data, the discriminator attempts to deem the generated samples as fake, i.e., not having been drawn from the true distribution. A conceptual illustration of a GAN generating a MNIST digit sample is provided below (Picture credit <a href="https://www.slideshare.net/ckmarkohchang/generative-adversarial-networks">[3]</a>).
-<img src=".\GAN_figs\GAN_concept.png" alt="GANs concept"></p>
+<img src=".\..\GAN_figs\GAN_concept.png" alt="GANs concept"></p>
 <p><strong><em>The objective function</em></strong></p>
 <p>Together, the discriminator and the generator compete against each other in a <em>zero-sum game</em> (wherein one player's gain is the other's loss). Given a set of training data samples $x$ and noise samples $z$, the gain (loss) function for the discriminator (generator) respectively, is given by</p>
 <p>$J(D,G)=\mathbb{E}_{x\sim data}\log_e D(x) + \mathbb{E}_{z\sim noise}\log_e \left(1-D(G(z))\right)$.</p>
 <p>Given parameters $\theta_D$ and $\theta_G$ for the discriminator and generator respectively, GANs play the minimax game: $\min_{\theta_G}\max_{\theta_D}J(\theta_D,\theta_G)$.</p>
 <p>One immediate benefit from using GANs over ITS is that GANs can generate data with only some data samples and without knowing anything about the underlying distribution. Thus, they work well even with unweildy, functions of random variables or multidimensional distributions. At the same time, however, training GANs requires finding the <em>Nash equilibrium</em> (we will define this shortly) of a game, which maybe more time-consuming than inverting a CDF.</p>
 <p>The framework for GANs (picture courtesy <a href="https://arxiv.org/abs/1701.00160">[2]</a>) is depicted below. The discriminator $D$ has to maximize $J(D,G)$ with respect to parameters $\theta_D$. Since the logarithm is a monotonic function, $D$ tries to make $D(x)$ close to $1$ and $D(G(z))$ close to $0$. On the other hand, the generator $G$ has to minimize $J(D,G)$ with respect to parameters $\theta_G$; so $G$ attempts to make $D(G(z))$ close to $1$. In other words, in this mini-max game, the discriminator wants to deem the generated samples as fake, while the generator wants to fool the discriminator into believing that the generated samples are real. In the example below involving human faces, the human face on the left is a real image, while the discriminator is led into believing that the image on the right is real as well.</p>
-<p><img src="GAN_figs\GAN_model.png" alt="Adversarial Networks Framework."></p>
+<p><img src=".\..\GAN_figs\GAN_model.png" alt="Adversarial Networks Framework."></p>
 <p>By competing or co-operating against each other, the system attains a <em>Nash equilibrium</em> corresponding to the generator sample distribution converging to the data distribution. The Nash equilibrium is defined as the solution concept of a game between two players wherein each player has chosen a strategy and neither player can benefit by changing strategies while the other players keep theirs unchanged.</p>
 <p>Let us do some math now concerning the Nash equilibrium. Recall the loss function for GAN is given by</p>
 $$
@@ -530,13 +530,13 @@ $$</p>
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong><em>Training</em></strong></p>
 <p>In the following, we use GANs to generate samples for certain toy distributions. For this (rather simple) use case, both the discriminator and generator networks were taken to be multi layer perceptrons (MLPs). A general architecture of the GAN network based on MLPs looks like the figure below (image credit <a href="http://people.ee.duke.edu/~lcarin/Yunchen9.30.2016.pdf">[4]</a>.
-<img src="GAN_figs\GAN_network.PNG" alt="Adversarial Network."></p>
+<img src=".\..\GAN_figs\GAN_network.PNG" alt="Adversarial Network."></p>
 <p>There are a couple of tips and tricks we need to keep in mind while designing GANs:</p>
 <ul>
 <li><p>It is very important to balance the discriminator and generator; and usually, the discriminator ``wins''. In other words, it is important to ensure that the discriminator is bigger and deeper than the generator, as otherwise it will not have sufficient capacity to learn to be able to distinguish accurately between generated and real samples. For our experiments, we used a generator with a MLP two hidden layers with $32$ nodes each, and the ReLu non-linearity between the layers, while the discriminator was a three-layered MLP with $32$ nodes each, and the ReLu non-linearity between layers. The last layer of the discriminator is taken to be a sigmoid, since the output can then be directly interpreted as a probability.</p>
 </li>
 <li><p>It is sometimes beneficial to train $D$ for a longer duration than $G$.The original GAN algorithm from <a href="https://arxiv.org/abs/1406.2661">[1]</a> is pasted below. Notice that the algorithm interleaves $k$ steps of discriminator training for every generator training step. $k$ is a hyper-parameter; for our basic experiments here, we used $k=1$ like in the original paper.
-<img src="GAN_figs\algorithm.PNG" alt="GAN algorithm"></p>
+<img src=".\..\GAN_figs\algorithm.PNG" alt="GAN algorithm"></p>
 </li>
 </ul>
 
@@ -550,11 +550,11 @@ $$</p>
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong><em>Preliminary Results</em></strong></p>
 <h5 id="Noise-distribution">Noise distribution<a class="anchor-link" href="#Noise-distribution">&#182;</a></h5><p>For all our simulations, we take the noise distribution $p_z(Z)$ to be a Gaussian with zero mean and unit standard variance, i.e., $z\sim\mathcal{N}(0,1)$. The noise histogram is shown below.
-<img src="GAN_figs\noise.PNG" alt="noise"></p>
+<img src=".\..\GAN_figs\noise.PNG" alt="noise"></p>
 <h5 id="Case-1:-Generating-a-Normal-distribution-with-a-different-mean-and-variance">Case 1: Generating a Normal distribution with a different mean and variance<a class="anchor-link" href="#Case-1:-Generating-a-Normal-distribution-with-a-different-mean-and-variance">&#182;</a></h5><p>First, we attempt to generate samples for another Gaussian distribution with a mean of $5$ and a variance of $2$. We train the GAN for $5000$ iterations each for $D$ and $G$ (or a total of $10000$ steps); however, the loss is seen to converge to its expected stationary value of $\approx -1.38$ around $1000$ steps itself.
-<img src="GAN_figs\1dGaussian.PNG" alt="1d Gaussian"></p>
+<img src=".\..\GAN_figs\1dGaussian.PNG" alt="1d Gaussian"></p>
 <h5 id="Case-2:-Generating-a-bi-modal-Normal-distribution">Case 2: Generating a bi-modal Normal distribution<a class="anchor-link" href="#Case-2:-Generating-a-bi-modal-Normal-distribution">&#182;</a></h5><p>Second, we attempt to generate samples for a bi-modal Gaussian distribution. The bi-modal distribution is obtained as a linear combination of two Gaussian distributions, $\mathcal{N}(-3,2)$ and $\mathcal{N}(3,1)$.
-<img src="GAN_figs\1dBimodalGaussian.PNG" alt="1d Gaussian">
+<img src=".\..\GAN_figs\1dBimodalGaussian.PNG" alt="1d Gaussian">
 We see that the generated samples' histogram matches the true data distribution reasonably well. We did not tweak the network parameters here further to potentially improve performance.</p>
 
 </div>
