@@ -8,7 +8,7 @@ author: "Sunil Srinivasa"
 .center-image
 {
     margin: 0 auto;
-    width: "200px";
+    width: "200";
     display: block;
 }
 </style>
