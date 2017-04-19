@@ -48,7 +48,7 @@ plt.plot(u,-1/l*np.log(1-u),'rs')
 
 ![png]({{site.baseurl}}/assets/images/2017-04-07-GANs/ITS.png){: .center-image}
 
-In the above depiction, each of the randomly generated numbers from a uniform distribution are mapped to a sample $$x$$. For instance, when $$\lambda=1$$, $$u=0.75$$ is mapped to $$x\approx1.38$$ (marked by the red dashed lines).
+In the above depiction, each of the randomly generated numbers from a uniform distribution $$U[0,1]$$ is mapped to a sample $$x$$ that follows an exponential distribution with unit mean. For instance, when $$\lambda=1$$, $$u=0.75$$ is mapped to $$x\approx1.38$$ (marked by the red dashed lines).
 
 Conceptually, the ITS method makes sense since the CDF of any random variable lies between $$0$$ and $$1$$, and samples $$x$$ are generated according to their contribution towards the CDF. This approach also extends to discrete distributions, if we simply generate the largest sample $$x$$ from the domain of the distribution such that $$F_X(x)\leq u$$.
 
