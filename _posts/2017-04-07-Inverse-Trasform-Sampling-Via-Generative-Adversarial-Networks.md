@@ -8,7 +8,6 @@ suppose we wish to generate samples from a continuous probability distribution w
 
 As an illustration, consider the case when we wish to generate samples from an exponential distribution, i.e., $F_X(x)=(1-e^{-\lambda x})$ for $x\geq 0$ and $0$ otherwise. Using ITS, we obtain $F_X(x) = u$, or equivalently, $x=-\frac{1}{\lambda}\ln(1-u)$. The mapping between $u$ and $x$ is indicated in the following graph.
 
-
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
@@ -33,15 +32,7 @@ plt.plot([0,u],[-1/l*np.log(1-u),-1/l*np.log(1-u)],'r--',linewidth=2)
 plt.plot(u,-1/l*np.log(1-u),'rs')
 ```
 
-
-
-
-    [<matplotlib.lines.Line2D at 0x7fc72f4ff210>]
-
-
-
-
-![png](output_2_1.png)
+![png]({{site.baseurl}}/assets/images/2017-04-07-GANs/ITS.png)
 
 
 In the above depiction, each of the randomly generated numbers from a uniform distribution are mapped to a sample $x$. For instance, when $\lambda=1$, $u=0.75$ is mapped to $x\approx1.38$ (marked by the red dashed lines).
@@ -79,7 +70,7 @@ One immediate benefit from using GANs over ITS is that GANs can generate data wi
 
 The framework for GANs (picture courtesy [[2]](https://arxiv.org/abs/1701.00160)) is depicted below. The discriminator $D$ has to maximize $J(D,G)$ with respect to parameters $\theta_D$. Since the logarithm is a monotonic function, $D$ tries to make $D(x)$ close to $1$ and $D(G(z))$ close to $0$. On the other hand, the generator $G$ has to minimize $J(D,G)$ with respect to parameters $\theta_G$; so $G$ attempts to make $D(G(z))$ close to $1$. In other words, in this mini-max game, the discriminator wants to deem the generated samples as fake, while the generator wants to fool the discriminator into believing that the generated samples are real. In the example below involving human faces, the human face on the left is a real image, while the discriminator is led into believing that the image on the right is real as well.
 
-![Adversarial Networks Framework.](.\..\GAN_figs\GAN_model.png)
+![Adversarial Networks Framework.]({{site.baseurl}}/assets/images/2017-04-07-GANs/GAN_model.png)
 
 By competing or co-operating against each other, the system attains a *Nash equilibrium* corresponding to the generator sample distribution converging to the data distribution. The Nash equilibrium is defined as the solution concept of a game between two players wherein each player has chosen a strategy and neither player can benefit by changing strategies while the other players keep theirs unchanged.
 
@@ -124,28 +115,28 @@ At convergence, $G$ fixates to the model and  $p_{data}(x)\sim p_{model}(x)$. Wh
 ***Training***
 
 In the following, we use GANs to generate samples for certain toy distributions. For this (rather simple) use case, both the discriminator and generator networks were taken to be multi layer perceptrons (MLPs). A general architecture of the GAN network based on MLPs looks like the figure below (image credit [[4]](http://people.ee.duke.edu/~lcarin/Yunchen9.30.2016.pdf).
-![Adversarial Network.](.\..\GAN_figs\GAN_network.PNG)
+![Adversarial Network.]({{site.baseurl}}/assets/images/2017-04-07-GANs/GAN_network.PNG)
 
 There are a couple of tips and tricks we need to keep in mind while designing GANs:
 
 - It is very important to balance the discriminator and generator; and usually, the discriminator ``wins''. In other words, it is important to ensure that the discriminator is bigger and deeper than the generator, as otherwise it will not have sufficient capacity to learn to be able to distinguish accurately between generated and real samples. For our experiments, we used a generator with a MLP two hidden layers with $32$ nodes each, and the ReLu non-linearity between the layers, while the discriminator was a three-layered MLP with $32$ nodes each, and the ReLu non-linearity between layers. The last layer of the discriminator is taken to be a sigmoid, since the output can then be directly interpreted as a probability.
 
 - It is sometimes beneficial to train $D$ for a longer duration than $G$.The original GAN algorithm from [[1]](https://arxiv.org/abs/1406.2661) is pasted below. Notice that the algorithm interleaves $k$ steps of discriminator training for every generator training step. $k$ is a hyper-parameter; for our basic experiments here, we used $k=1$ like in the original paper.
-![GAN algorithm](.\..\GAN_figs\algorithm.PNG)
+![GAN algorithm]({{site.baseurl}}/assets/images/2017-04-07-GANs/algorithm.PNG)
 
 ***Preliminary Results***
 
 ##### Noise distribution
 For all our simulations, we take the noise distribution $p_z(Z)$ to be a Gaussian with zero mean and unit standard variance, i.e., $z\sim\mathcal{N}(0,1)$. The noise histogram is shown below.
-![noise](.\..\GAN_figs\noise.PNG)
+![noise]({{site.baseurl}}/assets/images/2017-04-07-GANs/noise.PNG)
 
 ##### Case 1: Generating a Normal distribution with a different mean and variance
 First, we attempt to generate samples for another Gaussian distribution with a mean of $5$ and a variance of $2$. We train the GAN for $5000$ iterations each for $D$ and $G$ (or a total of $10000$ steps); however, the loss is seen to converge to its expected stationary value of $\approx -1.38$ around $1000$ steps itself.
-![1d Gaussian](.\..\GAN_figs\1dGaussian.PNG)
+![1d Gaussian]({{site.baseurl}}/assets/images/2017-04-07-GANs/1dGaussian.PNG)
 
 ##### Case 2: Generating a bi-modal Normal distribution
 Second, we attempt to generate samples for a bi-modal Gaussian distribution. The bi-modal distribution is obtained as a linear combination of two Gaussian distributions, $\mathcal{N}(-3,2)$ and $\mathcal{N}(3,1)$.
-![1d Gaussian](.\..\GAN_figs\1dBimodalGaussian.PNG)
+![1d Gaussian]({{site.baseurl}}/assets/images/2017-04-07-GANs/1dBimodalGaussian.PNG)
 We see that the generated samples' histogram matches the true data distribution reasonably well. We did not tweak the network parameters here further to potentially improve performance.
 
 ***Closing Notes***
