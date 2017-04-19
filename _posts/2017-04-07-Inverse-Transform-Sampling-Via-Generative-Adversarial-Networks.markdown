@@ -76,11 +76,19 @@ GANs essentially comprise two deep neural networks, the **Discriminator** and th
 
 Together, the discriminator and the generator compete against each other in a *zero-sum game* (wherein one player's gain is the other's loss). Given a set of training data samples $$x$$ and noise samples $$z$$, the gain (loss) function for the discriminator (generator) respectively, is given by
 
-$$J(D,G)=\mathbb{E}_{x\sim data}\log_e D(x) + \mathbb{E}_{z\sim noise}\log_e \left(1-D(G(z))\right)$$.
+$$
+\begin{aligned}
+  J(D,G)=\mathbb{E}_{x\sim data}\log_e D(x) + \mathbb{E}_{z\sim noise}\log_e \left(1-D(G(z))\right).
+\end{aligned}
+$$
 
 Given parameters $$\theta_D$$ and $$\theta_G$$ for the discriminator and generator respectively, GANs play the minimax game:
 
-$$\min_{\theta_G}\max_{\theta_D}J(\theta_D,\theta_G)$$.
+$$
+\begin{aligned}
+  \min_{\theta_G}\max_{\theta_D}J(\theta_D,\theta_G).
+\end{aligned}
+$$
 
 One immediate benefit from using GANs over ITS is that GANs can generate data with only some data samples and without knowing anything about the underlying distribution. Thus, they work well even with unweildy, functions of random variables or multidimensional distributions. At the same time, however, training GANs requires finding the *Nash equilibrium* (we will define this shortly) of a game, which maybe more time-consuming than inverting a CDF.
 
@@ -94,7 +102,7 @@ Let us do some math now concerning the Nash equilibrium. Recall the loss functio
 
 $$
 \begin{aligned}
- J(D,G) = \mathbb{E}_{x\sim data}\log_e D(x) + \mathbb{E}_{z\sim noise}\log_e \left(1-D(G(z))\right) \\
+ J(D,G) = \mathbb{E}_{x\sim data}\log_e D(x) + \mathbb{E}_{z\sim noise}\log_e \left(1-D(G(z))\right).
 \end{aligned}
 $$
 
@@ -102,27 +110,27 @@ When $$G$$ is fixed (which happens when a Nash equilibrium is attained; and then
 
 $$
 \begin{aligned} 
- J(D) = \mathbb{E}_{x\sim data}\log_e D(x) + \mathbb{E}_{x\sim model}\log_e \left(1-D(x)\right)
+ J(D) = \mathbb{E}_{x\sim data}\log_e D(x) + \mathbb{E}_{x\sim model}\log_e \left(1-D(x)\right).
 \end{aligned}
 $$
 
 Assuming that both $$p_{model}$$ and $$p_{data}$$ have the same sample space or basis, we can write
 $$
 \begin{aligned}
- J(D) &= \int_x\left[p_{data}(x)\log_e D(x) + p_{model}(x)\log_e \left(1-D(x)\right)\right] \text{dx} \\ 
+ J(D) = \int_x\left[p_{data}(x)\log_e D(x) + p_{model}(x)\log_e \left(1-D(x)\right)\right] \text{dx}. 
 \end{aligned}
 $$
 
 This is maximized when $$\frac{\partial J}{\partial D} = 0$$, i.e.,
 $$
 \begin{aligned}
-\frac{p_{data}(x)}{D(x)} = \frac{p_{model}(x)}{1-D(x)}
+  \frac{p_{data}(x)}{D(x)} = \frac{p_{model}(x)}{1-D(x)}.
 \end{aligned}
 $$
 In other words, for fixed $$G$$, the optimal discriminator is given by
 $$
 \begin{aligned}
-D(x) = \frac{p_{data}(x)}{p_{data}(x)+p_{model}(x)}
+  D(x) = \frac{p_{data}(x)}{p_{data}(x)+p_{model}(x)}.
 \end{aligned}
 $$
 
