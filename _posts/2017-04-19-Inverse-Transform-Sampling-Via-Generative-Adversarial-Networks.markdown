@@ -3,6 +3,7 @@ layout: post
 title: Inverse Transform Sampling Via Generative Adversarial Networks
 date:   2017-01-26 12:00:00 -0800
 author: "Sunil Srinivasa"
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 ---
 <style>
 th{
