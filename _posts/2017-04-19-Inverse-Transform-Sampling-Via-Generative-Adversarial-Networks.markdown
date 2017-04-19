@@ -14,7 +14,6 @@ td{
     padding: 5px;
 }
 </style>
-
 ## Using deep neural networks to sample arbitrary probability distributions
 
 **What is Inverse Transform Sampling?**
