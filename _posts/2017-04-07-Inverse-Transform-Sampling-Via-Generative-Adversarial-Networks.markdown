@@ -81,7 +81,9 @@ Together, the discriminator and the generator compete against each other in a *z
 
 $$J(D,G)=\mathbb{E}_{x\sim data}\log_e D(x) + \mathbb{E}_{z\sim noise}\log_e \left(1-D(G(z))\right)$$.
 
-Given parameters $$\theta_D$$ and $$\theta_G$$ for the discriminator and generator respectively, GANs play the minimax game: $$\min_{\theta_G}\max_{\theta_D}J(\theta_D,\theta_G)$$.
+Given parameters $$\theta_D$$ and $$\theta_G$$ for the discriminator and generator respectively, GANs play the minimax game:
+
+$$\min_{\theta_G}\max_{\theta_D}J(\theta_D,\theta_G)$$.
 
 One immediate benefit from using GANs over ITS is that GANs can generate data with only some data samples and without knowing anything about the underlying distribution. Thus, they work well even with unweildy, functions of random variables or multidimensional distributions. At the same time, however, training GANs requires finding the *Nash equilibrium* (we will define this shortly) of a game, which maybe more time-consuming than inverting a CDF.
 
