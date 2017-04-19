@@ -129,6 +129,7 @@ $$
 \end{aligned}
 $$
 In other words, for fixed $$G$$, the optimal discriminator is given by
+
 $$
 \begin{aligned}
   D(x) = \frac{p_{data}(x)}{p_{data}(x)+p_{model}(x)}.
