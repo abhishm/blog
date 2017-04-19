@@ -1,6 +1,5 @@
 ---
 layout: post
-title:  "Inverse Trasform Sampling Via Generative Adversarial Networks"
 date:   2017-04-07 12:00:00 -0800
 author: "Sunil Srinivasa"
 
