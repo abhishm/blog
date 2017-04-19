@@ -1,13 +1,8 @@
 ---
 layout: post
-date:   2017-04-07 12:00:00 -0800
 author: "Sunil Srinivasa"
 
-<!-- Load jQuery -->
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!-- Load KaTeX -->
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.1.1/katex.min.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.1.1/katex.min.js"></script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
 ---
 <style>
