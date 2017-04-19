@@ -115,6 +115,7 @@ $$
 $$
 
 Assuming that both $$p_{model}$$ and $$p_{data}$$ have the same sample space or basis, we can write
+
 $$
 \begin{aligned}
  J(D) = \int_x\left[p_{data}(x)\log_e D(x) + p_{model}(x)\log_e \left(1-D(x)\right)\right] \text{dx}. 
