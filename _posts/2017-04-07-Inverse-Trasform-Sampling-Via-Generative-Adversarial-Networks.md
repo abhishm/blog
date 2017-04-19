@@ -65,7 +65,7 @@ Moreover, in order to obtain a large number of samples, one needs to perform the
 Generative Adversarial Networks (GANs) are examples of generative models in the machine learning literature. They are used in the context of unsupervised or semi-supervised learning. Using a few training data samples, GANs learn to represent an estimate of the distribution. For a detailed introduction to GANs, please refer to the seminal paper by Goodfellow et al. [[1]](https://arxiv.org/abs/1406.2661) or the same author's excellent summary on GANs at NIPS 2016 [[2]](https://arxiv.org/abs/1701.00160).
 
 GANs essentially comprise two deep neural networks, the **Discriminator** and the **Generator**. The discriminator function $D$ takes in an input sample $x$ and determines the probability $D(x)$, of $x$ having been drawn from the original data distribution. The generator function $G$ takes in a noisy sample $z$, and generates a sample $G(z)$, that is intended to fool the discriminator into believing that the sample is indeed from the original data distribution. While the generator attempts to generate samples that are probabilistically close to the training data, the discriminator attempts to deem the generated samples as fake, i.e., not having been drawn from the true distribution. A conceptual illustration of a GAN generating a MNIST digit sample is provided below (Picture credit [[3]](https://www.slideshare.net/ckmarkohchang/generative-adversarial-networks)).
-![GANs concept]({{site.url}}/assets/images/2017-04-07-GANs/GAN_concept.png)
+![GANs concept]({{site.baseurl}}/assets/images/2017-04-07-GANs/GAN_concept.png)
 
 ***The objective function***
 
