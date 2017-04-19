@@ -49,7 +49,7 @@ plt.plot([0,u],[-1/l*np.log(1-u),-1/l*np.log(1-u)],'r--',linewidth=2)
 plt.plot(u,-1/l*np.log(1-u),'rs')
 ```
 
-![png]({{site.baseurl}}/assets/images/2017-04-07-GANs/ITS.png)
+![png][ITS]
 
 In the above depiction, each of the randomly generated numbers from a uniform distribution are mapped to a sample $$x$$. For instance, when $$\lambda=1$$, $$u=0.75$$ is mapped to $$x\approx1.38$$ (marked by the red dashed lines).
 
@@ -177,3 +177,5 @@ In this blog, we have provided an introduction to how Generative Adversarial Net
 [3] M. Chang, [GAN slides](https://www.slideshare.net/ckmarkohchang/generative-adversarial-networks)
 
 [4] Y. Pu, [GAN and its variants](http://people.ee.duke.edu/~lcarin/Yunchen9.30.2016.pdf)
+
+[ITS]: {{site.baseurl}}/assets/images/2017-04-07-GANs/ITS.png
