@@ -18,7 +18,7 @@ td{
 }
 </style>
 
-## Inverse Transform Sampling Via Generative Adversarial Networks
+## Using deep neural networks to sample arbitrary probability distributions
 
 **What is Inverse Transform Sampling?**
 
