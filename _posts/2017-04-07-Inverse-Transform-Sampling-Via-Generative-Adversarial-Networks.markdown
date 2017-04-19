@@ -5,21 +5,12 @@ author: "Sunil Srinivasa"
 ---
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 <style>
-th{
-    border:1px solid #000000;
-    padding: 5px;
-}
-
-td{
-    border:1px solid #000000;
-    padding: 5px;
-}
-</style>
 .center-image
 {
     margin: 0 auto;
     display: block;
 }
+</style>
 
 ## Using deep neural networks to sample arbitrary probability distributions
 
