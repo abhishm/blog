@@ -178,4 +178,4 @@ In this blog, we have provided an introduction to how Generative Adversarial Net
 
 [4] Y. Pu, [GAN and its variants](http://people.ee.duke.edu/~lcarin/Yunchen9.30.2016.pdf)
 
-[ITS]: {{site.baseurl}}/assets/images/2017-04-07-GANs/ITS.png
+[ITS]: {{site.baseurl}}/assets/images/2017-04-07-GANs/ITS.png {: width="200px"}
