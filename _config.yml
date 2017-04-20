@@ -25,6 +25,8 @@ github_username:  SDSRA-AI
 
 # Build settings
 markdown: kramdown
+kramdown:
+  math_engine: mathjax
 theme: minima
 gems:
   - jekyll-feed
