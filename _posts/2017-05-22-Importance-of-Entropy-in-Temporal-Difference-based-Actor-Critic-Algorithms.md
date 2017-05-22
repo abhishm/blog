@@ -61,11 +61,8 @@ Policy Gradient Algorithm starts with a randomly initialized (poor) policy. It t
 
 The way we improve the policy is based on the Policy Gradient Theorem ([PGT](https://papers.nips.cc/paper/1713-policy-gradient-methods-for-reinforcement-learning-with-function-approximation.pdf)). PGT says that if our objective is to find a policy that maximizes the total expected reward during an episode, then we should change the parameters of the policy in the following directions:
 
-\begin{equation}
-\Delta \theta = \mathbb{E}_{\{s_t, a_t\}_{t=0}^{T-1}}
-\end{equation}
-
 $$
+\Delta \theta = \mathbb{E}_{\{s_t, a_t\}_{t=0}^{T-1}}
 \left[\sum_{t = 1} ^ {T - 1} \left(\nabla_\theta\log \pi_\theta(a_t | s_t)\right) Q^{\pi_\theta}(s_t, a_t)\right]
 $$
 
@@ -84,8 +81,6 @@ Q(s, a) \leftarrow (1 - \alpha) \;Q(s, a) + \alpha \left(r + \gamma \sum_{b} \pi
 Note that the above equation is similar as in the Q-learning update except that instead of using the max action-values, we are using the averaged action-values. The rationale for using the above update is the this update converges to the action-values of the present policy while the previous update (Q-learning update) converges to the action-values of the optimal policy. We need the action-values of the present policies for policy gradient updates that is why we used the above updates.
 
 ### Implementing the Actor-Critic Algorithm
-
-** tmp **
 
 We see that Actor-Critic algorithm utilizes the best of both policy-based and value-based algorithm. We decided to implement actor-critic algorithm for this presentation. 
 
