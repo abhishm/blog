@@ -129,9 +129,10 @@ It does not matter how much hyper-parameter tuning we did, our total reward per 
 During our hunt in finding the reason behind the failure, we came across a shocking observation: *all deterministic policies are the local minima in the Vanilla Policy Gradient algorithm.*
 
 To explore it further, note that the update in the VPG is
-\begin{equation}
+
+$$
 \Delta \theta = \mathbb{E}_{\{s_t, a_t\}_{t=0}^{T-1}}\left[\sum_{t = 1} ^ T \left(\nabla_\theta\log \pi_\theta(a_t | s_t)\right) Q^{\pi_\theta}(s_t, a_t)\right]
-\end{equation}
+$$
 
 We will show that whenever $$\pi_\theta$$ is a deterministic policy, then $$\Delta \theta = 0$$. 
 
