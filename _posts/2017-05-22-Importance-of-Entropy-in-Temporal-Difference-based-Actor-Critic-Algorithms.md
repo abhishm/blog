@@ -64,13 +64,15 @@ The way we improve the policy is based on the Policy Gradient Theorem ([PGT](htt
 \begin{equation}
 \Delta \theta = \mathbb{E}_{\{s_t, a_t\}_{t=0}^{T-1}}
 \end{equation}
-
 $$
 \left[\sum_{t = 1} ^ T \left(\nabla_\theta\log \pi_\theta(a_t | s_t)\right) Q^{\pi_\theta}(s_t, a_t)\right]
 $$
+
 Note that in the above equation we need to estimate action-value function $$Q^{\pi_\theta}(s, a)$$. There are many ways we can estimate action-value functions. One traditional way is to use Monte-Carlo Estimate in which we collect a lot of trajectories and use the cumulative rewards to estimate action-values. Although simple, the Monte-Carlo estimate suffers from high variance. To overcome the problem of high variance, the actor-critics algorithms are proposed. 
 
 ### Actor-Critic
+
+**tmp**
 
 In actor-critic algorithm alongwith learning the policy, we also learn the action-values. These actor-critic algorithms are the focus of this presentation where we will use a function-approximator to approximate action-values. 
 
