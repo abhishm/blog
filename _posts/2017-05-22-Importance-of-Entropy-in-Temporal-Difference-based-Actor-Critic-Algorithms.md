@@ -99,7 +99,7 @@ We use a neural network to represent the policy. The input to this neural networ
 <img src="/assets/images/2017-05-22-entropy-ac/policy_nn.png" alt="Drawing" style="width: 500px;"/>
 
 **Value Network ($$Q_w(s, a)$$):** The value network gives the estimated actions values that we use in the policy gradient theorem. We used a two hidden layer neural network to model a value network. The input to the value network is the positions of pole and the output is the action-values of the policy $$\pi^\theta(s, a)$$. 
-<img src="figures/value_nn.png" alt="Drawing" style="width: 500px;"/>
+<img src="/assets/images/2017-05-22-entropy-ac/value_nn.png" alt="Drawing" style="width: 500px;"/>
 
 
 **Work Flow**
