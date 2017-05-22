@@ -88,18 +88,18 @@ To solve a reinforcement learning problem, we choose a classical control problem
 
 > A pole is attached by an un-actuated joint to a cart, which moves along a frictionless track. The system is controlled by applying a force of $$+1$$ or $$-1$$ to the cart. The pendulum starts upright, and the goal is to prevent it from falling over. A reward of $$+1$$ is provided for every timestep that the pole remains upright. The episode ends when the pole is more than 15 degrees from vertical, or the cart moves more than $$2.4$$ units from the center.
 
-**Goal: ** We set our time horizon to $$200$$ time steps. In our experience, we found out that $$200$$ is a sufficiently big number to ensure that we found a good policy to balnce the cartpole for ever. Our goal is to create an agent that can keep the Cartpole stable for the $$200$$ time-steps using the actor-critic algoirthm. The maximum reward that we can obtained in this environment is $$200$$.
+**Goal:** We set our time horizon to $$200$$ time steps. In our experience, we found out that $$200$$ is a sufficiently big number to ensure that we found a good policy to balnce the cartpole for ever. Our goal is to create an agent that can keep the Cartpole stable for the $$200$$ time-steps using the actor-critic algoirthm. The maximum reward that we can obtained in this environment is $$200$$.
 
 An Actor-Critic algorithm has two main components:
 
-**Policy Network ($$\pi_\theta(s, a)$$): ** The policy network tells us what actions to take by observing the position of the carpole. For example, in the following figure, we would hope that our learned policy network tell us that we should move our cart to right to balance the pole. 
+**Policy Network ($$\pi_\theta(s, a)$$):** The policy network tells us what actions to take by observing the position of the carpole. For example, in the following figure, we would hope that our learned policy network tell us that we should move our cart to right to balance the pole. 
 ![alt](figures/cartpole-right-action.png)
 
 We use a neural network to represent the policy. The input to this neural network is the position of the pole and output is the probability of taking actions right or left as shown in the figure below.
 ![alt](figures/policy_nn.png)
 [//]: # (<img src="figures/policy_nn.png" alt="Drawing" style="width: 500px;"/>)
 
-**Value Network ($$Q_w(s, a)$$): ** The value network gives the estimated actions values that we use in the policy gradient theorem. We used a two hidden layer neural network to model a value network. The input to the value network is the positions of pole and the output is the action-values of the policy $$\pi^\theta(s, a)$$. 
+**Value Network ($$Q_w(s, a)$$):** The value network gives the estimated actions values that we use in the policy gradient theorem. We used a two hidden layer neural network to model a value network. The input to the value network is the positions of pole and the output is the action-values of the policy $$\pi^\theta(s, a)$$. 
 ![alt](figures/value_nn.png)
 [//]: # (<img src="figures/value_nn.png" alt="Drawing" style="width: 500px;"/>)
 
@@ -124,7 +124,7 @@ The first time, we implemented and run our actor-critic algorithm, we saw an epi
 
 It does not matter how much hyper-parameter tuning we did, our total reward per episode was not going up at all. We explored further and we found out that the policy that our algorithm has learnt was a deterministic policy such that it always took the same action at all the states. Clearly, a policy that tells the agent to take the same action at all the states cannot be optimal for a cartpole environment. The proposed Actor-Critic algorithm was always converging to this deterministic policy independent of whatever initial weights we chose. This puzzled us.  
 
-**A mathematical explanation of the epic failure **
+**A mathematical explanation of the epic failure**
 
 During our hunt in finding the reason behind the failure, we came across a shocking observation: *all deterministic policies are the local minima in the Vanilla Policy Gradient algorithm.*
 
@@ -145,7 +145,7 @@ $$\mathbb{1}(l|s_i)$$ is an identity function such that $$\mathbb{1}(l|s_i) = 1 
 
 Since we do not want our learnt policy to converge to the deterministic policy that take the same actions at all the states, we decided to change our reward function such that no deterministic policy is the local optimum of this reward function. The additional reward that we add is the `entropy` of the policy.  
 
-**What is entropy? **
+**What is entropy?**
 
 In information-theoretic terms, Entropy is a measure of the uncertainty in a system. 
 
