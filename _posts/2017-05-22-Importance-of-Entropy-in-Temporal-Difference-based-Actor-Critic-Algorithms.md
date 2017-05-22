@@ -17,7 +17,7 @@ In recent years, we saw tremendous progress in Reinforcement Learning (RL). We s
 
 In a nutshell, in a RL problem, there is an agent. It interacts with an environment. The environment presents a situation to the agent that we call state. The agent takes an action, the environment gives her a reward, and the environment presents a new state to the agent. This process goes on until some stopping criterion is met. The goal of the agent is to take actions that maximizes her total reward. The following figure summarizes what is an RL problem:
 
-<img src="/assets/images/2017-05-22-entropy-ac/rl.png" alt="RL" style="width: 500px;"/>
+<img src="{{site.baseurl}}/assets/images/2017-05-22-entropy-ac/rl.png" alt="RL" style="width: 500px;"/>
 
 >##  Notations used in the above figure:
 1. **State ($$s_t$$):** State of the environment at time $$t$$
