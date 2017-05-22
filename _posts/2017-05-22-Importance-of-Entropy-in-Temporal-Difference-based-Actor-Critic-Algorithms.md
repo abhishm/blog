@@ -93,15 +93,13 @@ To solve a reinforcement learning problem, we choose a classical control problem
 An Actor-Critic algorithm has two main components:
 
 **Policy Network ($$\pi_\theta(s, a)$$):** The policy network tells us what actions to take by observing the position of the carpole. For example, in the following figure, we would hope that our learned policy network tell us that we should move our cart to right to balance the pole. 
-![alt](figures/cartpole-right-action.png)
+<img src="/assets/images/2017-05-22-entropy-ac/cartpole-right-action.png" alt="Drawing" style="width: 500px;"/>
 
 We use a neural network to represent the policy. The input to this neural network is the position of the pole and output is the probability of taking actions right or left as shown in the figure below.
-![alt](figures/policy_nn.png)
-[//]: # (<img src="figures/policy_nn.png" alt="Drawing" style="width: 500px;"/>)
+<img src="/assets/images/2017-05-22-entropy-ac/policy_nn.png" alt="Drawing" style="width: 500px;"/>
 
 **Value Network ($$Q_w(s, a)$$):** The value network gives the estimated actions values that we use in the policy gradient theorem. We used a two hidden layer neural network to model a value network. The input to the value network is the positions of pole and the output is the action-values of the policy $$\pi^\theta(s, a)$$. 
-![alt](figures/value_nn.png)
-[//]: # (<img src="figures/value_nn.png" alt="Drawing" style="width: 500px;"/>)
+<img src="figures/value_nn.png" alt="Drawing" style="width: 500px;"/>
 
 
 **Work Flow**
@@ -156,8 +154,7 @@ Mathematically, its entropy $$H(\pi)$$ is defined as $$H(\pi)=-\sum_{i=1}^np_i\l
 
 For illustration, we use the example of tossing a *unfair* coin, where the probability of landing heads or tails is not necessarily $$1/2$$. The toss outcome may be modeled as a Bernoulli PMF with only two masses: $$p_H=p$$ and $$p_T=(1-p)$$, where $$p_H$$ and $$p_T$$ are the probabilities of obtaining a head or a tail respectively. The entropy of the coin toss experiment is $$H(p)=-p\log_2 p -(1-p)\log_2(1-p)$$. The figure below plots H versus p.
 
-![alt](/assets/images/2017-05-22-entropy-ac/entropy.png)
-[//]: # (<img src="/assets/images/2017-05-22-entropy-ac/entropy.png" alt="entropy" style="width: 500px;"/>)
+<img src="/assets/images/2017-05-22-entropy-ac/entropy.png" alt="entropy" style="width: 500px;"/>
 
 We see that the entropy is maximized when $$p=0.5$$, and minimized when $$p=0$$ or $$p=1$$. $$p=1/2$$ is the situation of maximum uncertainty when it's most difficult to predict the toss outcome; the result of each coin toss delivers one  bit of information. When the coin is not fair, the toss delivers less than one bit of information. The extreme case is that of a double-headed coin that never comes up tails, or a double-tailed coin that never results in a head. Then there is no uncertainty. The entropy is zero: each toss of the coin delivers no new information as the outcome of each coin toss is always certain.
 
@@ -176,8 +173,7 @@ We change $$\theta$$ parameters in the direction such that we maximize the above
 
 After modifying the policy gradient reward, we ran the Vanilla Policy Gradient algorithm and you can see the result of one run in the following figure:
 
-![alt](/assets/images/2017-05-22-entropy-ac/actor_critic_with_multiple_critic_updates.png)
-[//]: # (<img src="/assets/images/2017-05-22-entropy-ac/actor_critic_with_multiple_critic_updates.png" alt="entropy" style="width: 500px;"/>)
+<img src="/assets/images/2017-05-22-entropy-ac/actor_critic_with_multiple_critic_updates.png" alt="entropy" style="width: 500px;"/>
 
 **References:**
 
