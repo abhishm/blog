@@ -64,15 +64,14 @@ The way we improve the policy is based on the Policy Gradient Theorem ([PGT](htt
 \begin{equation}
 \Delta \theta = \mathbb{E}_{\{s_t, a_t\}_{t=0}^{T-1}}
 \end{equation}
+
 $$
-\left[\sum_{t = 1} ^ T \left(\nabla_\theta\log \pi_\theta(a_t | s_t)\right) Q^{\pi_\theta}(s_t, a_t)\right]
+\left[\sum_{t = 1} ^ {T - 1} \left(\nabla_\theta\log \pi_\theta(a_t | s_t)\right) Q^{\pi_\theta}(s_t, a_t)\right]
 $$
 
 Note that in the above equation we need to estimate action-value function $$Q^{\pi_\theta}(s, a)$$. There are many ways we can estimate action-value functions. One traditional way is to use Monte-Carlo Estimate in which we collect a lot of trajectories and use the cumulative rewards to estimate action-values. Although simple, the Monte-Carlo estimate suffers from high variance. To overcome the problem of high variance, the actor-critics algorithms are proposed. 
 
 ### Actor-Critic
-
-**tmp**
 
 In actor-critic algorithm alongwith learning the policy, we also learn the action-values. These actor-critic algorithms are the focus of this presentation where we will use a function-approximator to approximate action-values. 
 
@@ -86,11 +85,13 @@ Note that the above equation is similar as in the Q-learning update except that 
 
 ### Implementing the Actor-Critic Algorithm
 
+** tmp **
+
 We see that Actor-Critic algorithm utilizes the best of both policy-based and value-based algorithm. We decided to implement actor-critic algorithm for this presentation. 
 
 To solve a reinforcement learning problem, we choose a classical control problem called "Cartpole". The cartpole problem is described in the openai gym [documentation](https://gym.openai.com/envs/CartPole-v0) as following:
 
-> A pole is attached by an un-actuated joint to a cart, which moves along a frictionless track. The system is controlled by applying a force of +1 or -1 to the cart. The pendulum starts upright, and the goal is to prevent it from falling over. A reward of +1 is provided for every timestep that the pole remains upright. The episode ends when the pole is more than 15 degrees from vertical, or the cart moves more than 2.4 units from the center.
+> A pole is attached by an un-actuated joint to a cart, which moves along a frictionless track. The system is controlled by applying a force of $$+1$$ or $$-1$$ to the cart. The pendulum starts upright, and the goal is to prevent it from falling over. A reward of $$+1$$ is provided for every timestep that the pole remains upright. The episode ends when the pole is more than 15 degrees from vertical, or the cart moves more than $$2.4$$ units from the center.
 
 ** Goal: ** We set our time horizon to $$200$$ time steps. In our experience, we found out that $$200$$ is a sufficiently big number to ensure that we found a good policy to balnce the cartpole for ever. Our goal is to create an agent that can keep the Cartpole stable for the $$200$$ time-steps using the actor-critic algoirthm. The maximum reward that we can obtained in this environment is $$200$$.
 
