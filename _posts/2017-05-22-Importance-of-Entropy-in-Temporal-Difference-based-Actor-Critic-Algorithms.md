@@ -87,7 +87,7 @@ To solve a reinforcement learning problem, we choose a classical control problem
 
 > A pole is attached by an un-actuated joint to a cart, which moves along a frictionless track. The system is controlled by applying a force of +1 or -1 to the cart. The pendulum starts upright, and the goal is to prevent it from falling over. A reward of +1 is provided for every timestep that the pole remains upright. The episode ends when the pole is more than 15 degrees from vertical, or the cart moves more than 2.4 units from the center.
 
-** Goal: ** We set our time horizon to $200$ time steps. In our experience, we found out that $200$ is a sufficiently big number to ensure that we found a good policy to balnce the cartpole for ever. Our goal is to create an agent that can keep the Cartpole stable for the 200 time-steps using the actor-critic algoirthm. The maximum reward that we can obtained in this environment is $200$.
+** Goal: ** We set our time horizon to $$200$$ time steps. In our experience, we found out that $$200$$ is a sufficiently big number to ensure that we found a good policy to balnce the cartpole for ever. Our goal is to create an agent that can keep the Cartpole stable for the $$200$$ time-steps using the actor-critic algoirthm. The maximum reward that we can obtained in this environment is $$200$$.
 
 An Actor-Critic algorithm has two main components:
 
@@ -132,7 +132,7 @@ To explore it further, note that the update in the VPG is
 \Delta \theta = \mathbb{E}_{\{s_t, a_t\}_{t=0}^{T-1}}\left[\sum_{t = 1} ^ T \left(\nabla_\theta\log \pi_\theta(a_t | s_t)\right) Q^{\pi_\theta}(s_t, a_t)\right]
 \end{equation}
 
-We will show that whenever $\pi_\theta$ is a deterministic policy, then $$\Delta \theta = 0$$. 
+We will show that whenever $$\pi_\theta$$ is a deterministic policy, then $$\Delta \theta = 0$$. 
 
 **Proof:**
 We use a neural network to generate the logit for the policy $$\pi_\theta$$. We then use a softmax layer to produce the probability. Since $$\pi_\theta$$ is a deterministic policy, it always generate one unique action at a given state. Using the calculus, the derivative of the loss with respect to the $$l^{th}$$ logit  will be $$\mathbb{E}_{\{s_t, a_t\}_{t=0}^{T-1}}\left[\left(\mathbb{1}(l|s_i) - \pi_\theta(l| s_i)\right)Q^{\pi_\theta}(s_t, a_t)\right]$$ where 
