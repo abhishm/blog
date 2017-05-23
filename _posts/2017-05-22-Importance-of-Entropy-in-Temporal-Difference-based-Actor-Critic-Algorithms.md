@@ -93,13 +93,13 @@ To solve a reinforcement learning problem, we choose a classical control problem
 An Actor-Critic algorithm has two main components:
 
 **Policy Network ($$\pi_\theta(s, a)$$):** The policy network tells us what actions to take by observing the position of the carpole. For example, in the following figure, we would hope that our learned policy network tell us that we should move our cart to right to balance the pole. 
-<img src="/assets/images/2017-05-22-entropy-ac/cartpole-right-action.png" alt="Drawing" style="width: 500px;"/>
+<img src="{{site.baseurl}}/assets/images/2017-05-22-entropy-ac/cartpole-right-action.png" alt="Drawing" style="width: 500px;"/>
 
 We use a neural network to represent the policy. The input to this neural network is the position of the pole and output is the probability of taking actions right or left as shown in the figure below.
 <img src="/assets/images/2017-05-22-entropy-ac/policy_nn.png" alt="Drawing" style="width: 500px;"/>
 
 **Value Network ($$Q_w(s, a)$$):** The value network gives the estimated actions values that we use in the policy gradient theorem. We used a two hidden layer neural network to model a value network. The input to the value network is the positions of pole and the output is the action-values of the policy $$\pi^\theta(s, a)$$. 
-<img src="/assets/images/2017-05-22-entropy-ac/value_nn.png" alt="Drawing" style="width: 500px;"/>
+<img src="{{site.baseurl}}/assets/images/2017-05-22-entropy-ac/value_nn.png" alt="Drawing" style="width: 500px;"/>
 
 
 **Work Flow**
@@ -118,7 +118,7 @@ We use a neural network to represent the policy. The input to this neural networ
 
 The first time, we implemented and run our actor-critic algorithm, we saw an epic failure. One of the example of this epic failure is in the following image. 
 ![alt](/assets/images/2017-05-22-entropy-ac/run_1_without_entropy.png)
-[//]: # (<img src="/assets/images/2017-05-22-entropy-ac/run_1_without_entropy.png", alt="epic failure", style="width: 500px;"/>)
+[//]: # (<img src="{{site.baseurl}}/assets/images/2017-05-22-entropy-ac/run_1_without_entropy.png", alt="epic failure", style="width: 500px;"/>)
 
 It does not matter how much hyper-parameter tuning we did, our total reward per episode was not going up at all. We explored further and we found out that the policy that our algorithm has learnt was a deterministic policy such that it always took the same action at all the states. Clearly, a policy that tells the agent to take the same action at all the states cannot be optimal for a cartpole environment. The proposed Actor-Critic algorithm was always converging to this deterministic policy independent of whatever initial weights we chose. This puzzled us.  
 
@@ -154,7 +154,7 @@ Mathematically, its entropy $$H(\pi)$$ is defined as $$H(\pi)=-\sum_{i=1}^np_i\l
 
 For illustration, we use the example of tossing a *unfair* coin, where the probability of landing heads or tails is not necessarily $$1/2$$. The toss outcome may be modeled as a Bernoulli PMF with only two masses: $$p_H=p$$ and $$p_T=(1-p)$$, where $$p_H$$ and $$p_T$$ are the probabilities of obtaining a head or a tail respectively. The entropy of the coin toss experiment is $$H(p)=-p\log_2 p -(1-p)\log_2(1-p)$$. The figure below plots H versus p.
 
-<img src="/assets/images/2017-05-22-entropy-ac/entropy.png" alt="entropy" style="width: 500px;"/>
+<img src="{{site.baseurl}}/assets/images/2017-05-22-entropy-ac/entropy.png" alt="entropy" style="width: 500px;"/>
 
 We see that the entropy is maximized when $$p=0.5$$, and minimized when $$p=0$$ or $$p=1$$. $$p=1/2$$ is the situation of maximum uncertainty when it's most difficult to predict the toss outcome; the result of each coin toss delivers one  bit of information. When the coin is not fair, the toss delivers less than one bit of information. The extreme case is that of a double-headed coin that never comes up tails, or a double-tailed coin that never results in a head. Then there is no uncertainty. The entropy is zero: each toss of the coin delivers no new information as the outcome of each coin toss is always certain.
 
@@ -173,7 +173,7 @@ We change $$\theta$$ parameters in the direction such that we maximize the above
 
 After modifying the policy gradient reward, we ran the Vanilla Policy Gradient algorithm and you can see the result of one run in the following figure:
 
-<img src="/assets/images/2017-05-22-entropy-ac/actor_critic_with_multiple_critic_updates.png" alt="entropy" style="width: 500px;"/>
+<img src="{{site.baseurl}}/assets/images/2017-05-22-entropy-ac/actor_critic_with_multiple_critic_updates.png" alt="entropy" style="width: 500px;"/>
 
 **References:**
 
