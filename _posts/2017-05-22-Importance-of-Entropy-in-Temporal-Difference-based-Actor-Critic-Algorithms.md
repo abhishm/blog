@@ -13,7 +13,7 @@ author: "Abhishek Mishra"
 </style>
 # What is an RL problem?
 
-In recent years, we saw tremendous progress in Reinforcement Learning (RL). We saw that RL can be used to  play Atari games ([Minh etal](https://arxiv.org/abs/1312.5602)) by looking at the images of the game like we human do. RL is also used to master the Game of Go ([Silver etal](http://www.nature.com/nature/journal/v529/n7587/full/nature16961.html)). So an obvious question comes is `what is RL and how is it used to solve such complicated problems`?
+In recent years, we saw tremendous progress in Reinforcement Learning (RL). We saw that RL can be used to  play Atari games ([Minh et al.](https://arxiv.org/abs/1312.5602)) by looking at the images of the game like we human do. RL is also used to master the Game of Go ([Silver et al.](http://www.nature.com/nature/journal/v529/n7587/full/nature16961.html)). So an obvious question comes is `what is RL and how is it used to solve such complicated problems`?
 
 In a nutshell, in a RL problem, there is an agent. It interacts with an environment. The environment presents a situation to the agent that we call state. The agent takes an action, the environment gives her a reward, and the environment presents a new state to the agent. This process goes on until some stopping criterion is met. The goal of the agent is to take actions that maximizes her total reward. The following figure summarizes what is an RL problem:
 
@@ -78,7 +78,7 @@ To estimate the action-values $$Q^{\pi_\theta}(s, a)$$ we modified the approach 
 Q(s, a) \leftarrow (1 - \alpha) \;Q(s, a) + \alpha \left(r + \gamma \sum_{b} \pi_{\theta}(s, b) Q(s', b)\right)
 \end{equation}
 
-Note that the above equation is similar as in the Q-learning update except that instead of using the max action-values, we are using the averaged action-values. The rationale for using the above update is the this update converges to the action-values of the present policy while the previous update (Q-learning update) converges to the action-values of the optimal policy. We need the action-values of the present policies for policy gradient updates that is why we used the above updates.
+Note that the above equation is similar as in the Q-learning update except that instead of using the max action-values, we are using the averaged action-values. The rationale for using the above update is that this update converges to the action-values of the present policy while the previous update (Q-learning update) converges to the action-values of the optimal policy. We need the action-values of the present policies for policy gradient updates that is why we used the above updates.
 
 ### Implementing the Actor-Critic Algorithm
 
@@ -117,7 +117,7 @@ We use a neural network to represent the policy. The input to this neural networ
 ### An epic failure
 
 The first time, we implemented and run our actor-critic algorithm, we saw an epic failure. One of the example of this epic failure is in the following image. 
-<img src="{{site.baseurl}}/assets/images/2017-05-22-entropy-ac/run_1_without_entropy.png", alt="epic failure", style="width: 500px;"/>
+<img src="{{site.baseurl}}/assets/images/2017-05-22-entropy-ac/run_1_without_entropy.png" alt="Drawing" style="width: 500px;"/>
 
 It does not matter how much hyper-parameter tuning we did, our total reward per episode was not going up at all. We explored further and we found out that the policy that our algorithm has learnt was a deterministic policy such that it always took the same action at all the states. Clearly, a policy that tells the agent to take the same action at all the states cannot be optimal for a cartpole environment. The proposed Actor-Critic algorithm was always converging to this deterministic policy independent of whatever initial weights we chose. This puzzled us.  
 
