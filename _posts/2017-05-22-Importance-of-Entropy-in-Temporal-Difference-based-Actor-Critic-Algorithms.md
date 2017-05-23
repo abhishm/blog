@@ -96,7 +96,7 @@ An Actor-Critic algorithm has two main components:
 <img src="{{site.baseurl}}/assets/images/2017-05-22-entropy-ac/cartpole-right-action.png" alt="Drawing" style="width: 500px;"/>
 
 We use a neural network to represent the policy. The input to this neural network is the position of the pole and output is the probability of taking actions right or left as shown in the figure below.
-<img src="/assets/images/2017-05-22-entropy-ac/policy_nn.png" alt="Drawing" style="width: 500px;"/>
+<img src="{{site.baseurl}}/assets/images/2017-05-22-entropy-ac/policy_nn.png" alt="Drawing" style="width: 500px;"/>
 
 **Value Network ($$Q_w(s, a)$$):** The value network gives the estimated actions values that we use in the policy gradient theorem. We used a two hidden layer neural network to model a value network. The input to the value network is the positions of pole and the output is the action-values of the policy $$\pi^\theta(s, a)$$. 
 <img src="{{site.baseurl}}/assets/images/2017-05-22-entropy-ac/value_nn.png" alt="Drawing" style="width: 500px;"/>
@@ -117,8 +117,7 @@ We use a neural network to represent the policy. The input to this neural networ
 ### An epic failure
 
 The first time, we implemented and run our actor-critic algorithm, we saw an epic failure. One of the example of this epic failure is in the following image. 
-![alt](/assets/images/2017-05-22-entropy-ac/run_1_without_entropy.png)
-[//]: # (<img src="{{site.baseurl}}/assets/images/2017-05-22-entropy-ac/run_1_without_entropy.png", alt="epic failure", style="width: 500px;"/>)
+<img src="{{site.baseurl}}/assets/images/2017-05-22-entropy-ac/run_1_without_entropy.png", alt="epic failure", style="width: 500px;"/>
 
 It does not matter how much hyper-parameter tuning we did, our total reward per episode was not going up at all. We explored further and we found out that the policy that our algorithm has learnt was a deterministic policy such that it always took the same action at all the states. Clearly, a policy that tells the agent to take the same action at all the states cannot be optimal for a cartpole environment. The proposed Actor-Critic algorithm was always converging to this deterministic policy independent of whatever initial weights we chose. This puzzled us.  
 
