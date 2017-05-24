@@ -165,10 +165,9 @@ Based on this idea we modified our policy gradient reward as following:
 \begin{equation}
 \sum_t \left(r_t + 0.5 \text{Entropy}\left(\pi(.|s_t,\theta\right)\right)
 \end{equation}
+We change $$\theta$$ parameters in the direction such that we maximize the above defined reward. Note that the reason for choosing the constant $$0.5$$ for multiplying factor for entropy is empirical. 
 
-The reason for choosing the constant $$0.5$$ for multiplying factor for entropy is empirical. 
-
-We change $$\theta$$ parameters in the direction such that we maximize the above defined reward.  
+  
 
 ### Result
 
