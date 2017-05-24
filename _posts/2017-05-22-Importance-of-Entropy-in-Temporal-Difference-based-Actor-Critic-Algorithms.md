@@ -98,7 +98,7 @@ An Actor-Critic algorithm has two main components:
 We use a neural network to represent the policy. The input to this neural network is the position of the pole and output is the probability of taking actions right or left as shown in the figure below.
 <img src="{{site.baseurl}}/assets/images/2017-05-22-entropy-ac/policy_nn.png" alt="Drawing" style="width: 500px;"/>
 
-**Value Network ($$Q_w(s, a)$$):** The value network gives the estimated actions values that we use in the policy gradient theorem. We used a two hidden layer neural network to model a value network. The input to the value network is the positions of pole and the output is the action-values of the policy $$\pi^\theta(s, a)$$. 
+**Value Network ($$Q_w(s, a)$$):** The value network gives the estimated actions values that we use in the policy gradient theorem. We used a two hidden layer neural network to model a value network. The input to the value network is the positions of pole and the output is the action-values of the policy $$\pi_\theta(s, a)$$. 
 <img src="{{site.baseurl}}/assets/images/2017-05-22-entropy-ac/value_nn.png" alt="Drawing" style="width: 500px;"/>
 
 
@@ -107,11 +107,11 @@ We use a neural network to represent the policy. The input to this neural networ
 1. Initialize policy parameters ($$\theta$$) and value function parameters ($$w$$) arbitrary
 2. do N times
     2. Collect a trajectory from the environment $$(s_0, a_0, r_0, s_1, a_1, r_1, \cdots s_T, a_T, r_T)$$ using policy $$\pi_\theta$$.
-    3. Compute $$Q^w(s, a)$$ for all state and action pairs seen in the trajecory.
+    3. Compute $$Q_w(s, a)$$ for all state and action pairs seen in the trajecory.
     4. Update $$\theta$$ using the polcicy gradient theorem.
     5. Update $$w$$ to minimize the loss 
     \begin{equation}
-    \min_w \left(Q^w(s, a) - \left(r + \gamma \sum_b \pi^\theta(s, b)Q^w(s, b)\right)\right)^2
+    \min_w \left(Q_w(s, a) - \left(r + \gamma \sum_b \pi_\theta(s, b)Q_w(s, b)\right)\right)^2
     \end{equation}
 
 ### An epic failure
@@ -145,7 +145,7 @@ Since we do not want our learnt policy to converge to the deterministic policy t
 
 **What is entropy?**
 
-In information-theoretic terms, Entropy is a measure of the uncertainty in a system. 
+In information-theoretic terms, entropy is a measure of the uncertainty in a system. 
 
 Consider a probability mass function (PMF) $$\pi$$ with probability masses $$p_1,p_2,\ldots{},p_n$$ (say), with $$\sum_{i=1}^np_i=1$$.
 
@@ -166,6 +166,8 @@ Based on this idea we modified our policy gradient reward as following:
 \sum_t \left(r_t + 0.5 \text{Entropy}\left(\pi(.|s_t,\theta\right)\right)
 \end{equation}
 
+The reason for choosing the constant $$0.5$$ for multiplying factor for entropy is empirical. 
+
 We change $$\theta$$ parameters in the direction such that we maximize the above defined reward.  
 
 ### Result
@@ -173,6 +175,9 @@ We change $$\theta$$ parameters in the direction such that we maximize the above
 After modifying the policy gradient reward, we ran the Vanilla Policy Gradient algorithm and you can see the result of one run in the following figure:
 
 <img src="{{site.baseurl}}/assets/images/2017-05-22-entropy-ac/actor_critic_with_multiple_critic_updates.png" alt="entropy" style="width: 500px;"/>
+
+### Concluding remarks
+From this presentation, we note that adding an entropy bonus when solving an RL problem using the actor-critic approach can be crucial. It helps in the policy not sticking to a sub-optimal deterministic policy.   
 
 **References:**
 
