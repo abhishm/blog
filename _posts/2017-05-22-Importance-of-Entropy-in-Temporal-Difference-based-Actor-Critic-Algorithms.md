@@ -183,3 +183,4 @@ From this presentation, we note that adding an entropy bonus when solving an RL 
 
 1. A good introduction to Policy Gradient Algorithm: [Karpathy's RL Blog](http://karpathy.github.io/2016/05/31/rl/)
 2. [Nervana blog](https://www.nervanasys.com/demystifying-deep-reinforcement-learning/)
+3. [An state of the art actor-critic approach using entropy bonus](https://arxiv.org/pdf/1602.01783.pdf)
