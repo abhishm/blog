@@ -159,25 +159,29 @@ The following figure demonstrates the process of computing the loss.
 
 > Note that some of the states are dummy states in the batch and we don't want to use the loss by them so we will use a sequence masking technique to make the contribution of their losses zero.
 
-The follwoing 8 line code in tensorflow takes care for us doing all the heavy lifting of computing the loss and updating the parameters. 
+The follwoing 15 line code in tensorflow takes care for us doing all the heavy lifting of computing the loss and updating the parameters. 
 
 ```python
-def create_variables_for_optimization(self):
+  def create_variables_for_optimization(self):
     with tf.name_scope("optimization"):
       with tf.name_scope("masker"):
           self.mask = tf.sequence_mask(self.seq_len, self.num_step)
           self.mask = tf.reshape(tf.cast(self.mask, tf.float32), (-1,))
-      self.loss_applied = tf.nn.sparse_softmax_cross_entropy_with_logits(
+      self.pl_loss = tf.nn.sparse_softmax_cross_entropy_with_logits(
                                             logits=self.logit,
-                                            labels=tf.reshape(self.actions, (-1,)))
-      self.masked_loss_applied = tf.multiply(self.loss_applied, self.mask)
-      self.loss = tf.reduce_mean(tf.multiply(self.masked_loss_applied,
-      self.gradients = self.optimizer.compute_gradients(self.loss)
+                                            labels=self.actions_flatten)
+
+      self.pl_loss = tf.multiply(self.pl_loss, self.mask)
+      self.pl_loss = tf.reduce_mean(tf.multiply(self.pl_loss, self.returns_flatten))
+      self.entropy = tf.multiply(self.entropy, self.mask)
+      self.entropy = tf.reduce_mean(self.entropy)
+      self.loss = self.pl_loss - self.entropy_bonus * self.entropy
+      self.trainable_variables = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope="policy_network")
+      self.gradients = self.optimizer.compute_gradients(self.loss, var_list=self.trainable_variables)
       self.clipped_gradients = [(tf.clip_by_norm(grad, self.max_gradient), var)
                                   for grad, var in self.gradients]
       self.train_op = self.optimizer.apply_gradients(self.clipped_gradients,
                                                      self.global_step)
-
 ```
 
 ## Solving a reinforcement learning problem with an RNN policy
