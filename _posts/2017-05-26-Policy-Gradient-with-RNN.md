@@ -15,17 +15,17 @@ author: "Abhishek Mishra"
 # Policy Gradient
 
 Policy gradient is a popular method to solve a reinforcement learning problem. In a reinforcement learning, there is an agent observes the present state of the environment, takes an action according to her **policy**, receives a reward and the environment goes to a next state. This process is repeated until some terminating criterion is met. The batch of *state, action, and reward* forms one `trajectory` of the environment. The goal of the agent is to maximize its total reward obtained in one trajectory. The following figure represents a archetypical setting of a reinforcement learning problem:
-![rl]({{site.baseurl}}/assets/images/2017-05-26-Policy-Gradient-with-RNN/rl.png) 
+![rl]({{site.baseurl}}/assets/images/2017-05-26-policy-gradient-with-RNN/rl.png) 
 
 Policy gradient provides a method to solve a reinforcement learning problem. A policy is simply a function which takes the state of the environment as the input and gives the actions' probabilities as the output. Usually, we use a parameterized policy and use the Feed Forward Neural Network to represent this policy. A typical policy network looks as the following:
-![]({{site.baseurl}}/assets/images/2017-05-26-Policy-Gradient-with-RNN/mlp_policy.png)
+![]({{site.baseurl}}/assets/images/2017-05-26-policy-gradient-with-RNN/mlp_policy.png)
 
 We initialize the parameters of the policy randomly. We collect a batch of trajectories by taking actions according to the policy and then update the parameters using the whole batch.    
 
 # Markovian Assumption of the policy gradient
 
 Policy gradient algorithm are based on the assumption that the the only information that the policy need to know to take the optimal action is the present state. It does not matter how the present state is reached. This assumption is known as `Markovian Assumption`. However, this assumption may not be valid for all the problem. For example, this assumption is not valid when creating an agent that can play the Pong game. 
-![]({{site.baseurl}}/assets/images/2017-05-26-Policy-Gradient-with-RNN/pong.png)
+![]({{site.baseurl}}/assets/images/2017-05-26-policy-gradient-with-RNN/pong.png)
 
 In the pong game, the environment provides the present state of the game that can be an image as above. By looking at the image, an agent cannot know the direction and speed of the ball consequently the present state is not sufficient for the agent to determine her action. However, the agent can determine the speed and direction of the ball if she would have access of the past few frames along with the present frames, henceforth, she can decide the optimal action. Precisely, this trick was used by [DeepMind](https://arxiv.org/abs/1312.5602) in their seminal work. They stacked four images and passed it to a feed forward neural network that finally give them the action to take for their agent. However, this is an heurestic. It is impossible to know how many past states are required to form an appropriate representation of the state for all the  problems.   
 
@@ -39,7 +39,7 @@ Recurrent Neural Network (RNN) are very popular in machine learning when one hav
 
 <img src="figures/RNN-rolled.png" alt="RNN-rolled" style="width: 200px;"/>
 
-The input $x_t$ to the above RNN is the observation from the environment. The $A$ is representing the internal state of the RNN and $h_t$ is the output that is in our case is the action that we apply in the environment.
+The input $$x_t$$ to the above RNN is the observation from the environment. The $$A$$ is representing the internal state of the RNN and $$h_t$$ is the output that is in our case is the action that we apply in the environment.
 
 ## A trajectory 
 
@@ -155,7 +155,7 @@ $$
 
 The following figure demonstrates the process of computing the loss.
 
-![]({{site.baseurl}}/assets/images/2017-05-26-Policy-Gradient-with-RNN//bp_in_rnn.png)
+![]({{site.baseurl}}/assets/images/2017-05-26-policy-gradient-with-RNN/bp_in_rnn.png)
 
 > Note that some of the states are dummy states in the batch and we don't want to use the loss by them so we will use a sequence masking technique to make the contribution of their losses zero.
 
@@ -191,7 +191,7 @@ To solve a reinforcement learning problem with the help of VPG where policy is m
 # Results
 
 The following figure shows the progress of our approach as the number of iterations:
-![tb]({{site.baseurl}}/assets/tb_pg_rnn.JPG)
+![tb]({{site.baseurl}}/assets/images/2017-05-26-policy-gradient-with-RNN/tb_pg_rnn.JPG)
 
 You can see that our approach is able to bring the Acrobot to a ceratin height in approximately 100 steps. 
 
