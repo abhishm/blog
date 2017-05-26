@@ -37,13 +37,13 @@ Recurrent Neural Network (RNN) are very popular in machine learning when one hav
 
 # RNN for representing a policy
 
-<img src="figures/RNN-rolled.png" alt="RNN-rolled" style="width: 200px;"/>
+<img src="{{site.baseurl}}/assets/images/2017-05-26-policy-gradient-with-RNN/RNN-rolled.png" alt="RNN-rolled" style="width: 200px;"/>
 
 The input $$x_t$$ to the above RNN is the observation from the environment. The $$A$$ is representing the internal state of the RNN and $$h_t$$ is the output that is in our case is the action that we apply in the environment.
 
 ## A trajectory 
 
-A trajectory is a set of tuples consist of environment states, actions taken by the agent, and rewards starting from time $t=0$ until some terminating criterion is met. Lets assume that the environment is at state $s_0$ at time $t=0$, we take action $a_0$, and received the reward $r_0$. The environment goes to a new state $s_1$ at which we take $a_1$ and received the reward $r_1$ and so on. Assume that the environment meets some stopping criteron after time $T$. This stopping criterion can be as simple as maximum $T$ timesteps allowed from the environment. The trajectory is $$\left\{(s_0, a_0, r_0), (s_1, a_1, r_1), \cdots, (s_{T-1}, a_{T-1}, r_{T-1}), s_T\right\}$$
+A trajectory is a set of tuples consist of environment states, actions taken by the agent, and rewards starting from time $$t=0$$ until some terminating criterion is met. Lets assume that the environment is at state $$s_0$$ at time $$t=0$$, we take action $a_0$, and received the reward $$r_0$$. The environment goes to a new state $$s_1$$ at which we take $$a_1$$ and received the reward $$r_1$$ and so on. Assume that the environment meets some stopping criteron after time $$T$$. This stopping criterion can be as simple as maximum $T$ timesteps allowed from the environment. The trajectory is $$\left\{(s_0, a_0, r_0), (s_1, a_1, r_1), \cdots, (s_{T-1}, a_{T-1}, r_{T-1}), s_T\right\}$$
 
 ## A trajectory using an RNN policy
 
