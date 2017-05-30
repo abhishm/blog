@@ -14,7 +14,7 @@ author: "Abhishek Mishra"
 
 # Policy Gradient
 
-Policy gradient is a popular method to solve a reinforcement learning problem. In a reinforcement learning, there is an agent observes the present state of the environment, takes an action according to her **policy**, receives a reward and the environment goes to a next state. This process is repeated until some terminating criterion is met. The batch of *state, action, and reward* forms one `trajectory` of the environment. The goal of the agent is to maximize its total reward obtained in one trajectory. The following figure represents a archetypical setting of a reinforcement learning problem:
+Policy gradient is a popular method to solve a reinforcement learning problem. In reinforcement learning problem, there is an agent that observes the present state of the environment, takes an action according to her **policy**, receives a reward and the environment goes to a next state. This process is repeated until some terminating criterion is met. The batch of *state, action, and reward* forms one `trajectory` of the environment. The goal of the agent is to maximize its total reward obtained in one trajectory. The following figure represents an archetypical setting of a reinforcement learning problem:
 ![rl]({{site.baseurl}}/assets/images/2017-05-26-policy-gradient-with-RNN/rl.png) 
 
 Policy gradient provides a method to solve a reinforcement learning problem. A policy is simply a function which takes the state of the environment as the input and gives the actions' probabilities as the output. Usually, we use a parameterized policy and use the Feed Forward Neural Network to represent this policy. A typical policy network looks as the following:
@@ -24,16 +24,17 @@ We initialize the parameters of the policy randomly. We collect a batch of traje
 
 # Markovian Assumption of the policy gradient
 
-Policy gradient algorithm are based on the assumption that the the only information that the policy need to know to take the optimal action is the present state. It does not matter how the present state is reached. This assumption is known as `Markovian Assumption`. However, this assumption may not be valid for all the problem. For example, this assumption is not valid when creating an agent that can play the Pong game. 
+Policy gradient algorithm are based on the assumption that the the only information that the policy need to know to take the optimal action is the present state. It does not matter how the present state is reached. This assumption is known as `Markovian Assumption`. However, this assumption may not be valid for all problems. For example, this assumption is not valid when creating an agent that can play the Pong game. 
+
 ![]({{site.baseurl}}/assets/images/2017-05-26-policy-gradient-with-RNN/pong.png)
 
-In the pong game, the environment provides the present state of the game that can be an image as above. By looking at the image, an agent cannot know the direction and speed of the ball consequently the present state is not sufficient for the agent to determine her action. However, the agent can determine the speed and direction of the ball if she would have access of the past few frames along with the present frames, henceforth, she can decide the optimal action. Precisely, this trick was used by [DeepMind](https://arxiv.org/abs/1312.5602) in their seminal work. They stacked four images and passed it to a feed forward neural network that finally give them the action to take for their agent. However, this is an heurestic. It is impossible to know how many past states are required to form an appropriate representation of the state for all the  problems.   
+In the pong game, the environment provides the present state of the game that can be an image as above. By looking at the image, an agent cannot know the direction and speed of the ball, consequently the present state is not sufficient for the agent to determine her action. However, the agent can determine the speed and direction of the ball if she would have access of the past few frames along with the present frames, henceforth, she can decide the optimal action. Precisely, this trick was used by [DeepMind](https://arxiv.org/abs/1312.5602) in their seminal work. They stacked four images and passed it to a feed forward neural network that finally give them the action to take for their agent. However, this is an heurestic. It is not always possible to know how many past states are required to form an appropriate representation of the state for all the  problems.   
 
-To solve this problem, we used an approach based on Recurrent Neural Network.
+To solve this problem, we used an approach based on Recurrent Neural Network. This idea is inspired by the [work](https://arxiv.org/abs/1507.06527).
 
 # Recurrent Neural Network for help in non-markovian setting
 
-Recurrent Neural Network (RNN) are very popular in machine learning when one have to deal with sequential data. RNNs have an internal state. This state keeps a representation of what has happened in the past. Then based on the present input and present state of the RNN, RNN decides the optimal output. Inspired by this, we used RNN to deal with non-markovian environment. Mainly, we used RNNs to parametrize the policy.  
+Recurrent Neural Network (RNN) are very popular in machine learning when one has to deal with sequential data. RNNs have an internal state. This state keeps a representation of what has happened in the past. Then based on the present input and present state of the RNN, it decides the optimal output. Inspired by this, we used RNN to deal with non-markovian environment. Mainly, we used RNNs to parametrize the policy.  
 
 # RNN for representing a policy
 
@@ -43,11 +44,11 @@ The input $$x_t$$ to the above RNN is the observation from the environment. The 
 
 ## A trajectory 
 
-A trajectory is a set of tuples consist of environment states, actions taken by the agent, and rewards starting from time $$t=0$$ until some terminating criterion is met. Lets assume that the environment is at state $$s_0$$ at time $$t=0$$, we take action $$a_0$$, and received the reward $$r_0$$. The environment goes to a new state $$s_1$$ at which we take $$a_1$$ and received the reward $$r_1$$ and so on. Assume that the environment meets some stopping criteron after time $$T$$. This stopping criterion can be as simple as maximum $$T$$ timesteps allowed from the environment. The trajectory is $$\left\{(s_0, a_0, r_0), (s_1, a_1, r_1), \cdots, (s_{T-1}, a_{T-1}, r_{T-1}), s_T\right\}$$
+A trajectory is a set of tuples consist of environment states, actions taken by the agent, and rewards starting from time $$t=0$$ until some terminating criterion is met. Lets assume that the environment is at state $$s_0$$ at time $$t=0$$, we take action $$a_0$$, and received the reward $$r_0$$. The environment goes to a new state $$s_1$$ at which we take $$a_1$$ and received the reward $$r_1$$ and so on. Assume that the environment meets some stopping criteron after time $$T$$. This stopping criterion can be as simple as maximum $$T$$ timesteps allowed from the environment. The trajectory is $$\left\{(s_0, a_0, r_0), (s_1, a_1, r_1), \cdots, (s_{T-1}, a_{T-1}, r_{T-1}) \right\}$$
 
 ## A trajectory using an RNN policy
 
-In an RNN policy, rnn also has an internal state. This internal state changes as the environment state changes. When we use an RNN policy to generate actions, these internal states of RNN also become a part of trajectories. So we will have trajectories consist of set of four tuples instead of three tuples previously. The trajectory is $$\left\{(s_0, h_0, a_0, r_0), (s_1, h_1, a_1, r_1), \cdots, (s_{T-1}, h_{T-1}, a_{T-1}, r_{T-1}), s_T, h_T\right\}$$ where $$h_t$$ is the internal state of the RNN at time $$t$$.
+In an RNN policy, RNN also has an internal state. This internal state changes as the environment state changes. When we use an RNN policy to generate actions, these internal states of RNN also become a part of trajectories. So we will have trajectories consist of set of four tuples instead of three tuples previously. The trajectory is $$\left\{(s_0, h_0, a_0, r_0), (s_1, h_1, a_1, r_1), \cdots, (s_{T-1}, h_{T-1}, a_{T-1}, r_{T-1})\right\}$$ where $$h_t$$ is the internal state of the RNN at time $$t$$.
 
 The code for collecting the trajectories for an rnn policy is as following:
 ```python
@@ -96,7 +97,7 @@ The code for collecting the trajectories for an rnn policy is as following:
 When we train a RNN, we pass it a batch of examples to update the parameters. Each example is a sequence of inputs. The length of this sequence is a hyper-parameter that we choose based on our understandings of the time dependencies in the sequence. To feed our trajectory for updating the RNN parameters, we need to convert our trajectroy into a batch of sequence. For example, for a batch of sequece of $$4$$, our trajectory will be transformed to something like following:
 
 $$
-\left\{(s_0, h_0, a_0, r_0), (s_1, h_1, a_1, r_1), \cdots, (s_{T-1}, h_{T-1}, a_{T-1}, r_{T-1}), s_T, h_T\right\}
+\left\{(s_0, h_0, a_0, r_0), (s_1, h_1, a_1, r_1), \cdots, (s_{T-1}, h_{T-1}, a_{T-1}, r_{T-1})\right\}
 = \left\{
 \begin{array}{ccc}
 &[(s_0, h_0, a_0, r_0), (s_1, a_1, r_1), (s_2, a_2, r_2), (s_3, a_3, r_3)],&\\
@@ -107,7 +108,7 @@ $$
 \right.
 $$
 
-> Not that only the first RNN state of each sequence was stored in the batched sequence becasue for computing the loss only the first RNN state is required as will be clearer in the next section. 
+> Note that only the first RNN state of each sequence was stored in the batched sequence because for computing the loss only the first RNN state is required as will be clearer in the next section. 
 
 The following code does exactly as the above: 
 ```python
@@ -143,7 +144,7 @@ Note that the trajectory length cannot always be multiple of the sequence length
 
 ## Feeding the batched trajectory to compute loss in RNN based policy
 
-We feed a batch of sequence in the RNN. We just need to feed the first RNN state to compute the forward propogation. At each step, RNN compute the probability of taking all actions at the state that was fed to it. We see from the trajectory the actual action that was taken at that state then we compute the [Policy Gradient Loss](https://web.eecs.umich.edu/~baveja/Papers/PolicyGradientNIPS99.pdf). 
+We feed a batch of sequence in the RNN. We just need to feed the first RNN state to compute the forward propagation. At each step, RNN computes the probability of taking all actions at the state that was fed to it. We see from the trajectory the actual action that was taken at that state then we compute the [Policy Gradient Loss](https://web.eecs.umich.edu/~baveja/Papers/PolicyGradientNIPS99.pdf). 
 
 $$
 \text{Loss}_i = -\log o_i(a_i) R_i
@@ -159,7 +160,7 @@ The following figure demonstrates the process of computing the loss.
 
 > Note that some of the states are dummy states in the batch and we don't want to use the loss by them so we will use a sequence masking technique to make the contribution of their losses zero.
 
-The follwoing 15 line code in tensorflow takes care for us doing all the heavy lifting of computing the loss and updating the parameters. 
+The follwoing 15 lines code in tensorflow takes care for us doing all the heavy lifting of computing the loss and updating the parameters. 
 
 ```python
   def create_variables_for_optimization(self):
