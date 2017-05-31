@@ -149,6 +149,7 @@ We feed a batch of sequence in the RNN. We just need to feed the first RNN state
 $$
 \text{Loss}_i = -\log o_i(a_i) R_i
 $$
+
 where $$o_i$$ is the output of the RNN that represent the probability of all actions at state $$s_i$$.
 
 $$
