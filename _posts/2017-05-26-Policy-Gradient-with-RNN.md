@@ -94,7 +94,7 @@ The code for collecting the trajectories for an rnn policy is as following:
 
 ## Creating a batch from a trajectory 
 
-When we train a RNN, we pass it a batch of examples to update the parameters. Each example is a sequence of inputs. The length of this sequence is a hyper-parameter that we choose based on our understandings of the time dependencies in the sequence. To feed our trajectory for updating the RNN parameters, we need to convert our trajectroy into a batch of sequence. For example, for a batch of sequece of $$4$$, our trajectory will be transformed to something like following:
+When we train an RNN, we pass it a batch of examples to update the parameters. Each example is a sequence of inputs. The length of this sequence is a hyper-parameter that we choose based on our understandings of the time dependencies in the sequence. To feed our trajectory for updating the RNN parameters, we need to convert our trajectroy into a batch of sequence. For example, for a batch of sequece of $$4$$, our trajectory will be transformed to something like following:
 
 $$
 \left\{(s_0, h_0, a_0, r_0), (s_1, h_1, a_1, r_1), \cdots, (s_{T-1}, h_{T-1}, a_{T-1}, r_{T-1})\right\}
@@ -140,15 +140,16 @@ def expand_episode(self, episode):
 ```
 
 
-Note that the trajectory length cannot always be multiple of the sequence length that we choose to train the RNN. To overcome that we will insert some dummy inputs in the last example as is done in the above code snippet. 
+Note that the trajectory length cannot always be multiple of the sequence length that we choose to train the RNN. To overcome this we will insert some dummy inputs in the last example as is done in the above code snippet. 
 
 ## Feeding the batched trajectory to compute loss in RNN based policy
 
-We feed a batch of sequence in the RNN. We just need to feed the first RNN state to compute the forward propagation. At each step, RNN computes the probability of taking all actions at the state that was fed to it. We see from the trajectory the actual action that was taken at that state then we compute the [Policy Gradient Loss](https://web.eecs.umich.edu/~baveja/Papers/PolicyGradientNIPS99.pdf). 
+We feed a batch of sequence in the RNN. We just need to feed the first RNN state to compute the forward propagation. At each step, RNN computes the probability of taking all actions at the state that was fed to it. We see in the trajectory the actual action that was taken at that state then we compute the [Policy Gradient Loss](https://web.eecs.umich.edu/~baveja/Papers/PolicyGradientNIPS99.pdf). 
 
 $$
 \text{Loss}_i = -\log o_i(a_i) R_i
 $$
+where $$o_i$$ is the output of the RNN that represent the probability of all actions at state $$s_i$$.
 
 $$
 \text{Total Loss} = \sum_i \text{Loss}_i
@@ -191,6 +192,8 @@ To solve a reinforcement learning problem with the help of VPG where policy is m
 
 >The acrobot system includes two joints and two links, where the joint between the two links is actuated. Initially, the links are hanging downwards, and the goal is to swing the end of the lower link up to a given height.
 
+Although Acrobot still satifies the Markovian assumption, we will show that our RNN policy is able to learn a reasonably good policy for the Acrobot environment.
+
 **Goal:** Our goal is to bring the Acrobot to a certain height as quickly as possible.
 
 # Results
@@ -202,4 +205,4 @@ You can see that our approach is able to bring the Acrobot to a ceratin height i
 
 ## Concluding Remarks
 
-Recurrent Neural Network can be used to solve RL problem even when the Markovian assumptions are not valid.  
+Recurrent Neural Network can be used to solve RL problem when the Markovian assumptions are not valid. In our upcoming blogs, we will show how this RNN policy, equipped with few more tricks, can efficiently solve Atari games.
