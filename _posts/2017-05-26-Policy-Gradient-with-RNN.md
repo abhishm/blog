@@ -193,7 +193,7 @@ To solve a reinforcement learning problem with the help of VPG where policy is m
 
 >The acrobot system includes two joints and two links, where the joint between the two links is actuated. Initially, the links are hanging downwards, and the goal is to swing the end of the lower link up to a given height.
 
-Although Acrobot still satifies the Markovian assumption, we will show that our RNN policy is able to learn a reasonably good policy for the Acrobot environment.
+Although Acrobot still satisfies the Markovian assumption, we will show that our RNN policy is able to learn a reasonably good policy for the Acrobot environment.
 
 **Goal:** Our goal is to bring the Acrobot to a certain height as quickly as possible.
 
