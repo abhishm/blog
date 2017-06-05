@@ -38,9 +38,9 @@ Recurrent Neural Network (RNN) are very popular in machine learning when one has
 
 # RNN for representing a policy
 
-<img src="{{site.baseurl}}/assets/images/2017-05-26-policy-gradient-with-RNN/RNN-rolled.png" alt="RNN-rolled" style="width: 200px;"/>
+<img src="{{site.baseurl}}/assets/images/2017-05-26-policy-gradient-with-RNN/rnn.png" alt="RNN-rolled" style="width: 200px;"/>
 
-The input $$x_t$$ to the above RNN is the observation from the environment. The $$A$$ is representing the internal state of the RNN and $$h_t$$ is the output that is in our case is the action that we apply in the environment.
+The input $$s_t$$ to the above RNN is the observation from the environment. The $$h_t$$ is representing the internal state of the RNN and $$o_t$$ is the output that is in our case is the probability of all actions that we can take.
 
 ## A trajectory 
 
