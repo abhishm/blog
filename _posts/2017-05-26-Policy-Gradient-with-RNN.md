@@ -14,13 +14,14 @@ author: "Abhishek Mishra"
 
 # Policy Gradient
 
-Policy gradient is a popular method to solve a reinforcement learning problem. In reinforcement learning problem, there is an agent that observes the present state of the environment, takes an action according to her **policy**, receives a reward and the environment goes to a next state. This process is repeated until some terminating criterion is met. The batch of *state, action, and reward* forms one `trajectory` of the environment. The goal of the agent is to maximize its total reward obtained in one trajectory. The following figure represents an archetypical setting of a reinforcement learning problem:
+Policy gradient is a popular method to solve a reinforcement learning problem. In a reinforcement learning problem, there is an agent that observes the present state of the environment, takes an action according to her **policy**, receives a reward and the environment goes to a next state. This process is repeated until some terminating criterion is met. The sequence of *state, action, and reward* forms one `trajectory` of the environment. The goal of the agent is to maximize its total reward obtained in one trajectory. The following figure represents an archetypical setting of a reinforcement learning problem:
 ![rl]({{site.baseurl}}/assets/images/2017-05-26-policy-gradient-with-RNN/rl.png) 
 
-Policy gradient provides a method to solve a reinforcement learning problem. A policy is simply a function which takes the state of the environment as the input and gives the actions' probabilities as the output. Usually, we use a parameterized policy and use the Feed Forward Neural Network to represent this policy. A typical policy network looks as the following:
+Policy gradient methods provide a way to solve a reinforcement learning problem. A policy is simply a function which takes the state of the environment as the input and gives the actions' probabilities as the output. Usually, we use a parameterized policy and use a feed forward neural network to represent this policy. A typical policy network for a problem with discrete action space looks as the following:
 ![]({{site.baseurl}}/assets/images/2017-05-26-policy-gradient-with-RNN/mlp_policy.png)
 
-We initialize the parameters of the policy randomly. We collect a batch of trajectories by taking actions according to the policy and then update the parameters using the whole batch.    
+To train a policy network, we initialize the parameters of the policy randomly and then apply the following steps untill we get a good policy:
+1. collect a batch of trajectories by taking actions according to the policy and then update the parameters using the whole batch.    
 
 # Markovian Assumption of the policy gradient
 
