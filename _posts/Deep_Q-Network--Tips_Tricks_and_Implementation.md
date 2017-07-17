@@ -332,4 +332,4 @@ DQN algorithm solves the instability issues in Q-learning by applying the follow
 2. Replay buffer
 3. gradient (loss) clipping
 
-We see that DQN algorithm can be trained to learn a good policy for a continuous state-space problem. The full code for this problem can be found [here](https://www.github.com/abhishm/dqn) 
+We see that DQN algorithm can be trained to learn a good policy for a continuous state-space problem. The full code for this problem can be found [here](https://www.github.com/abhishm/dqn)  
