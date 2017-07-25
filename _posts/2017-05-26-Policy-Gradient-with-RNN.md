@@ -32,7 +32,7 @@ Policy gradient algorithms are based on the assumption that the the only informa
 
 In the pong game, the environment provides the present state of the game that can be an image as above. By looking at the image, an agent cannot know the direction and speed of the ball, consequently the present state is not sufficient for the agent to determine her action. However, the agent can determine the speed and direction of the ball if she would have access to the past few frames along with the present frames. Precisely this trick was used by [DeepMind](https://arxiv.org/abs/1312.5602) in their seminal work. They stacked four images and passed it to a feed forward neural network that finally give them the action to take for their agent. However, this is an heurestic. It is not always possible to know how many past states are required to form an appropriate representation of the environment's state for all the  problems.   
 
-To go around this issue, in this blog we will use an approach based on Recurrent Neural Network. This idea is inspired by the [work](https://arxiv.org/abs/1507.06527).
+To go around this issue, in this blog we will use an approach based on Recurrent Neural Network. This idea is inspired by this [work](https://arxiv.org/abs/1507.06527) where the authors showed the efficacy of RNN in solving Partially-Observable MDPs.
 
 # Recurrent Neural Network for help in non-markovian setting
 
