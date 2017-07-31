@@ -15,7 +15,7 @@ author: "Abhishek Mishra"
 # Policy Gradient
 
 Policy gradient is a popular method to solve a reinforcement learning problem. In a reinforcement learning problem, there is an agent that observes the present state of the environment, takes an action according to her **policy**, receives a reward and the environment goes to a next state. This process is repeated until some terminating criterion is met. The sequence of *state, action, and rewards* forms one `trajectory` of the environment. The goal of the agent is to maximize its total cumulative reward obtained in one trajectory. The following figure represents an archetypical setting of a reinforcement learning problem:
-![rl]({{site.baseurl}}/assets/images/2017-05-26-policy-gradient-with-RNN/rl.png) 
+![rl]({{site.baseurl}}/assets/images/2017-05-26-policy-gradient-with-RNN/rl.png)
 
 Policy gradient methods provide a way to solve a reinforcement learning problem. A policy is simply a function which takes the state of the environment as the input and gives the actions' probabilities as the output. Usually, we use a parameterized policy and use a feed forward neural network to represent this policy. A typical policy network for a problem with discrete action space looks as the following:
 ![]({{site.baseurl}}/assets/images/2017-05-26-policy-gradient-with-RNN/mlp_policy.png)
@@ -26,7 +26,7 @@ To train a policy network, we initialize the parameters of the policy randomly a
 
 # Markovian Assumption of the policy gradient
 
-Policy gradient algorithms are based on the assumption that the the only information that the policy need to know to take the optimal action is the present state. It does not matter how the present state is reached. This assumption is known as `Markovian Assumption`. However, this assumption may not be valid for all problems. For example, this assumption is not valid when creating an agent that can play the Pong game. 
+Policy gradient algorithms are based on the assumption that the the only information that the policy need to know to take the optimal action is the present state. It does not matter how the present state is reached. This assumption is known as `Markovian Assumption`. However, this assumption may not be valid for all problems. For example, this assumption is not valid when creating an agent that can play the Pong game.
 
 ![]({{site.baseurl}}/assets/images/2017-05-26-policy-gradient-with-RNN/pong.png)
 
@@ -44,7 +44,7 @@ Recurrent Neural Networks (RNN) are very popular in machine learning when one ha
 
 The input $$s_t$$ to the above RNN is the observation from the environment. The $$h_t$$ is representing the internal state of the RNN and $$o_t$$ is the output that is in our case is the probability of all actions that we can take.
 
-## A trajectory 
+## A trajectory
 
 A trajectory is a set of tuples consisting of environment states, actions taken by the agent, and rewards starting from time $$t=0$$ until some terminating criterion is met. Lets assume that when an environment is at state $$s_0$$ at time $$t=0$$, we take action $$a_0$$, and receive reward $$r_0$$. The environment goes to a new state $$s_1$$ at which we take action $$a_1$$ and receive reward $$r_1$$ and so on. Assume that the environment meets some stopping criteron after time $$T$$. This stopping criterion can be as simple as maximum $$T$$ timesteps are allowed from the environment. The trajectory is $$\left\{(s_0, a_0, r_0), (s_1, a_1, r_1), \cdots, (s_{T-1}, a_{T-1}, r_{T-1}) \right\}$$
 
@@ -94,7 +94,7 @@ The code for collecting the trajectories for an rnn policy is as following:
 
 ```
 
-## Creating a batch from a trajectory 
+## Creating a batch from a trajectory
 
 When we train an RNN, we pass it a batch of examples to update the parameters. Each example is a sequence of inputs. The length of this sequence is a hyper-parameter that we choose based on our understandings of the time dependencies in the sequence. To feed our trajectory for updating the RNN parameters, we need to convert our trajectroy into a batch of sequence. For example, for a batch of sequece of length $$4$$, our trajectory will be transformed to something like the following:
 
@@ -110,9 +110,9 @@ $$
 \right.
 $$
 
-> Note that only the first RNN state of each sequence was stored in the batched sequence because for computing the loss only the first RNN state is required as will be clearer in the next section. 
+> Note that only the first RNN state of each sequence was stored in the batched sequence because for computing the loss only the first RNN state is required as will be clearer in the next section.
 
-The following code does exactly as the above: 
+The following code does exactly as the above:
 ```python
 def expand_episode(self, episode):
         episode_size = len(episode["rewards"])
@@ -142,11 +142,11 @@ def expand_episode(self, episode):
 ```
 
 
-Note that the trajectory length cannot always be multiple of the sequence length that we choose to train the RNN. To overcome this we will insert some dummy inputs in the last example as is done in the above code snippet. 
+Note that the trajectory length cannot always be multiple of the sequence length that we choose to train the RNN. To overcome this we will insert some dummy inputs in the last example as is done in the above code snippet.
 
 ## Feeding the batched trajectory to compute loss in RNN based policy
 
-We feed a batch of sequence in the RNN. We just need to feed the first RNN state to compute the forward propagation. At each step, RNN computes the probability of taking all actions at the state that was fed to it. We see in the trajectory the actual action that was taken at that state then we compute the [Policy Gradient Loss](https://web.eecs.umich.edu/~baveja/Papers/PolicyGradientNIPS99.pdf). 
+We feed a batch of sequence in the RNN. We just need to feed the first RNN state to compute the forward propagation. At each step, RNN computes the probability of taking all actions at the state that was fed to it. We see in the trajectory the actual action that was taken at that state then we compute the [Policy Gradient Loss](https://web.eecs.umich.edu/~baveja/Papers/PolicyGradientNIPS99.pdf).
 
 $$
 \text{Loss}_i = -\log o_i(a_i) R_i
@@ -164,7 +164,7 @@ The following figure demonstrates the process of computing the loss.
 
 > Note that some of the states are dummy states in the batch and we don't want to use the loss by them so we will use a sequence masking technique to make the contribution of their losses zero.
 
-The follwoing 15 lines code in tensorflow takes care for us doing all the heavy lifting of computing the loss and updating the parameters. 
+The follwoing 15 lines code in tensorflow takes care for us doing all the heavy lifting of computing the loss and updating the parameters.
 
 ```python
   def create_variables_for_optimization(self):
@@ -204,7 +204,7 @@ Although Acrobot still satisfies the Markovian assumption, we will show that our
 The following figure shows the progress of our approach as the number of iterations:
 ![tb]({{site.baseurl}}/assets/images/2017-05-26-policy-gradient-with-RNN/tb_pg_rnn.JPG)
 
-You can see that our approach is able to bring the Acrobot to a ceratin height in approximately 100 steps. 
+You can see that our approach is able to bring the Acrobot to a ceratin height in approximately 100 steps.
 
 ## Concluding Remarks
 
