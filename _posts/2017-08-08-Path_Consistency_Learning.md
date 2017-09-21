@@ -110,4 +110,4 @@ I experiment with three modes of learning. For the lack of better words, I named
 2. **Online-Offline Learning:** In online-offline learning, an agent collects one trajectory from the environment, make an update of the policy parameters using this trajectory and put this trajectory into an replay buffer. Subsequently, she samples $$20$$ trajectories from the replay buffer and further use these trajectories to update the policy parameters. The sampling criterion is not uniform. If a trajectory has high total rewards, then it will have higher chances of being sampled.
 3. **Offline Learning:** In offline learning, the agent just samples the trajectory from the replay buffer and use them to update the present policy parameters. I am using the replay buffer created during the `online-offline learning` mode. The sampling criterion in `offline learning`is same as in `online-offline learning`.  
 
-![rewards](../assets/images/2017-08-08-PCL/rewards_grid.png)
+![rewards]({{site.baseurl}}/assets/images/2017-08-08-PCL/rewards_grid.png)
