@@ -44,7 +44,7 @@ Whenever you see an expression like this $E[X]$, you can think of that it is tim
 $$
 \lim_{n \rightarrow \infty }\frac{X_1 + X_2 + \ldots + X_n}{n} \rightarrow E[X]
 $$  
-Where $X_1, X_2, \ldots, X_n$ are independent and identically distributed random variable as random variable X. In short, to estimate $E[X]$, generate lot of samples according to distribution of random variable $X$ and the mean of these samples will be close to $E[X]$. But a few questions come to mind. How many samples? How close?  
+Where $X_1, X_2, \ldots, X_n$ are independent and identically distributed random variable as random variable X. In short, to estimate $E[X]$, generate lot of samples according to distribution of random variable $X$ and the mean of these samples will be close to $E[X]$. This raises a couple of questions $-$ How many samples? How close to true value?  
 
 If we use $n$ samples, our estimate for $E[X]$ is $\mu_n = \frac{X_1 + X_2 + \ldots + X_n}{n}$. $\mu_n$ is a random variable with mean $E[X]$ and variance $\frac{\sigma^2}{n}$ where $\sigma^2$ is the variance of random variable $X$. This imply that $\mu_n$ is an unbiased estimate of $E[X]$. However, the RMSE in the estimate of $E[X]$ by $\mu_n$ only reduces as $O(n^{-1/2})$. This is a bad news. If we want to improve our estimate by three decimal points, we need 1 million more data points. So a question comes, how can we reduce the variance in the Monte-Carlo estimate.
 
@@ -87,4 +87,12 @@ $$
 f(s_t) = \frac{E_{a_t}\left(\nabla_\theta\log \pi_\theta(a_t|s_t)\right)^2 R_t}{E_{a_t}\left(\nabla_\theta\log \pi_\theta(a_t|s_t)\right)^2}
 $$
 
-This is a computationally expensive estimate of baseline when the number of parameters are high in the baseline. Therefore, we often take a approximations and just choose the value-function $\left(V(s)\right)$ of that policy as the estimate of the baseline.
+>This is a computationally expensive estimate of baseline when the number of parameters are high in the baseline. Therefore, we often take a approximations and just choose the value-function $\left(V(s)\right)$ of the policy as the estimate of the baseline.
+
+At this point, you may feel cheated that I could have just told you at the very beginning that choose the estimate of value-function as the baseline. However, I think that above discussion might give you some basic foundation of baseline. Moreover, many new algorithms such as [Actor Critic with Experience Replay (ACER)](https://arxiv.org/abs/1611.01224), [Q-Prop](https://arxiv.org/pdf/1611.02247.pdf) etc. are developed with the same spirit to reduce the variance in the gradient estimate. Q-Prop uses a similar technique of control variate to reduce the variance.
+
+# Using the baseline to solve a reinforcement learning problem
+
+As in the previous blog, we will use the classical reinforcement learning problem `Acrobot` to showcase the efficacy of baseline in reducing the variance in the policy gradient algorithm. There will be only minor changes in our code to incorporate the baseline. Mainly, alongwith predicting probabilities of actions at each state, we also predict the estimate of value-function for that policy as shown in the following figure.
+
+![baseline](../assets/images/2017-08-15-baseline/rnn_baseline.png)
