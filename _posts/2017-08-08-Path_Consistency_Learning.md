@@ -26,7 +26,7 @@ As is hinted in the name of the algorithm, there should be some consistency crit
 
 ## What is this consistency criterion?
 To understand the consistency criterion, look at the following figure.
-![transition](../assets/images/2017-08-08-PCL/transitions_horizontal.png)
+![transition]({{site.baseurl}}/assets/images/2017-08-08-PCL/transitions_horizontal.png)
 
 Assume that we collected a trajectory and in one portion of the trajectory we see the above transitions. Assume that $$\pi^*(\cdot|s)$$ is the optimal policy and $$V^*(s)$$ is the value function of the optimal policy then the `Path Consistency` criterion says that $$\pi^*(s)$$ and $$V^*(s)$$ must satisfy the following equation:
 
@@ -41,7 +41,7 @@ Note that the above condition must be satisfied by the optimal policy and optima
 To understand the proof of the consistency criterion, look at the following figure. Assume that we are at state $$s_0$$. We
 can take action from the set $$\{a_1, a_2, \cdots, a_n\}$$. If we take action $$a_i$$ we get a reward $$r_i$$ and we transition to the new state $$s_i$$ where $$i \in \{1, 2, \cdots, n\}$$. Assume that we already know the optimal future rewards from state $$s_i$$ that is $$V^*(s_i)$$ for $$i \in \{1, 2, \cdots, n\}$$.
 
- ![pcl-basic](../assets/images/2017-08-08-PCL/pcl-basic.png)
+ ![pcl-basic]({{site.baseurl}}/assets/images/2017-08-08-PCL/pcl-basic.png)
 
 Our goal is to find the policy that maximizes our total reward at state $$s_0$$. Assume that the optimal policy is $$\pi^*(s)$$ that tells us the probability of choosing actions at state $$s$$. Further, lets consider that according to the optimal policy $$\pi^*(s_0)$$, we should choose actions $$\{a_1, a_2, \cdots, a_n\}$$ with probability $$\{p_1^*, p_2^*, \cdots, p_n^*\}$$ respectively. The total reward that we will obtain using the policy $$\pi^*(s)$$ is
 
