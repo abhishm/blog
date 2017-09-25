@@ -84,11 +84,12 @@ $$
 -V^*(s_0) - \tau \log p_i^* + r_i + \gamma V^*(s_i) = 0 \;\;\forall\;\; i \in \{1, 2, \cdots, n\}
 $$
 
-By recursively writing the equation for next states ($V^*(s_i)$) until the desired time step, we get the path consistency equation. $$\blacksquare$
+By recursively writing the equation for next states ($V^*(s_i)$) until the desired time step, we get the path consistency equation. $$\blacksquare$$
 
 #### Using Path Consistency Learning to solve a reinforcement learning problem when we have access to off-policy data
 
-The approach is similar to the way we use policy gradient algorithm. Lets assume that the policy is $$\pi_\theta(\cdot|s)$$ that is parameterized by parameter $$\theta$$, and the value function $$V_w(s)$$ is parameterized by parameter $$w$$. We get a portion of trajectory from off-policy data. Consider that the portion is $$\{(s_0, a_0, r_0), (s_{1}, a_{1}, r_{1}), \cdots, (s_N, a_N, r_N)\}$$. We will compute the path consistency loss for the present policy as the following:
+The approach is similar to the way we use policy gradient algorithm. Lets assume that the policy is 
+$$\pi_\theta(\cdot|s)$$ that is parameterized by parameter $$\theta$$, and the value function $$V_w(s)$$ is parameterized by parameter $$w$$. We get a portion of trajectory from off-policy data. Consider that the portion is $$\{(s_0, a_0, r_0), (s_{1}, a_{1}, r_{1}), \cdots, (s_N, a_N, r_N)\}$$. We will compute the path consistency loss for the present policy as the following:
 
 $$
 C(\theta, w) = \left(-V_w(s_0) - \sum_{t=0}^{N} \gamma^{t}\log\pi_\theta(a_{t}|s_{t})
