@@ -26,6 +26,7 @@ As is hinted in the name of the algorithm, there should be some consistency crit
 
 ## What is this consistency criterion?
 To understand the consistency criterion, look at the following figure.
+
 ![transition]({{site.baseurl}}/assets/images/2017-08-08-PCL/transitions_horizontal.png)
 
 Assume that we collected a trajectory and in one portion of the trajectory we see the above transitions. Assume that $$\pi^*(\cdot|s)$$ is the optimal policy and $$V^*(s)$$ is the value function of the optimal policy then the `Path Consistency` criterion says that $$\pi^*(s)$$ and $$V^*(s)$$ must satisfy the following equation:
