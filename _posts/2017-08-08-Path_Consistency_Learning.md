@@ -84,7 +84,7 @@ $$
 -V^*(s_0) - \tau \log p_i^* + r_i + \gamma V^*(s_i) = 0 \;\;\forall\;\; i \in \{1, 2, \cdots, n\}
 $$
 
-By recursively writing the equation for next states ($V^*(s_i)$) until the desired time step, we get the path consistency equation. $$\blacksquare$$
+By recursively writing the equation for next states ($$V^*(s_i)$$) until the desired time step, we get the path consistency equation. $$\blacksquare$$
 
 #### Using Path Consistency Learning to solve a reinforcement learning problem when we have access to off-policy data
 
