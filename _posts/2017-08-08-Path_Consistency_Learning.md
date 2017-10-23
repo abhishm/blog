@@ -29,7 +29,7 @@ To understand the consistency criterion, look at the following figure.
 
 ![transition]({{site.baseurl}}/assets/images/2017-08-08-PCL/transitions_horizontal.png)
 
-Assume that we collected a trajectory and in one portion of the trajectory we see the above transitions. Assume that 
+Assume that we collected a trajectory and in one portion of the trajectory we see the above transitions. Assume that
 $$\pi^{*}(\cdot|s)$$ is the optimal policy and $$V^{*}(s)$$ is the value function of the optimal policy then the `Path Consistency` criterion says that $$\pi^{*}(s)$$ and $$V^{*}(s)$$ must satisfy the following equation:
 
 $$
@@ -88,7 +88,7 @@ By recursively writing the equation for next states ($V^*(s_i)$) until the desir
 
 #### Using Path Consistency Learning to solve a reinforcement learning problem when we have access to off-policy data
 
-The approach is similar to the way we use policy gradient algorithm. Lets assume that the policy is 
+The approach is similar to the way we use policy gradient algorithm. Lets assume that the policy is
 $$\pi_\theta(\cdot|s)$$ that is parameterized by parameter $$\theta$$, and the value function $$V_w(s)$$ is parameterized by parameter $$w$$. We get a portion of trajectory from off-policy data. Consider that the portion is $$\{(s_0, a_0, r_0), (s_{1}, a_{1}, r_{1}), \cdots, (s_N, a_N, r_N)\}$$. We will compute the path consistency loss for the present policy as the following:
 
 $$
@@ -115,3 +115,7 @@ I experiment with three modes of learning. For the lack of better words, I named
 3. **Offline Learning:** In offline learning, the agent just samples the trajectory from the replay buffer and use them to update the present policy parameters. I am using the replay buffer created during the `online-offline learning` mode. The sampling criterion in `offline learning`is same as in `online-offline learning`.  
 
 ![rewards]({{site.baseurl}}/assets/images/2017-08-08-PCL/rewards_grid.png)
+
+## Conclusions
+
+This is one of the most surprising results that I found for PCL. When I use the Online learning mode, the algorithm  destabilized after learning the right policy. My 
